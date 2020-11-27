@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layouttt"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="activity_chitiet.tablich">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LỊCH CHIẾU"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chọn Ngày Xem : "/>
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/ngay"
+            android:text="Ngày"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:textSize="16pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+        <Button
+            android:id="@+id/chonngay"
+            android:text="Chọn Ngày"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+        </Button>
+    </RelativeLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ExpandableListView
+                android:id="@+id/list"
+                android:divider="@color/red"
+                android:childDivider="@color/black"
+                android:dividerHeight="2dp"
+                android:scrollbars="none"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ExpandableListView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">DoAnRapPhim</string>
+    <string name="navigation_drawer_open">Open Navigation drawer</string>
+    <string name="navigation_drawer_close">Open Navigation drawer</string>
+    <string name="hello_blank_fragment" />
+    <string-array name="chinhanh">
+        <item>RCP Quận 1 </item>
+        <item>RCP Quận 2</item>
+        <item>RCP Quận 3</item>
+        <item>RCP Quận 4</item>
+        <item>RCP Quận 5</item>
+    </string-array>
+    <string-array name="thoigian">
+        <item>9:00</item>
+        <item>12:00</item>
+        <item>3:00</item>
+        <item>17:00</item>
+    </string-array>
+</resources>

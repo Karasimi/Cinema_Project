@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Trang Chủ"/>
+        <item android:id="@+id/nav_person"
+            android:icon="@drawable/ic_person"
+            android:title="Trang Cá Nhân"/>
+        <item android:id="@+id/nav_ds"
+            android:icon="@drawable/ds"
+            android:title="Danh Sách Phim"/>
+        <item android:id="@+id/nav_dangxuat"
+            android:title="Đăng Xuất"/>
+
+    </group>
+</menu>
