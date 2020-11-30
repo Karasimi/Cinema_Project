@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#44F812</color>
     <color name="backround">#D1CFCE</color>
+    <color name="cam">#FF9800</color>
 </resources>

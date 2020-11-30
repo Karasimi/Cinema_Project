@@ -51,10 +51,7 @@ public class adaptertopphim extends RecyclerView.Adapter<adaptertopphim.ViewHold
             public void onClick(View v) {
                 Intent intent = new Intent(context, activity_chiTietPhim.class);
                 intent.putExtra("id",p.get(position).getId());
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", p.get(position).getId());
-                tabthongtin t = new tabthongtin();
-                t.setArguments(bundle);
+                intent.putExtra("id1",p.get(position).getId());
                 context.startActivity(intent);
             }
         });

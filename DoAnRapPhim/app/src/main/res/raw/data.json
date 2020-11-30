@@ -146,5 +146,189 @@
       "diem": 9,
       "trangthai": 2
     }
+  ],
+  "lichchieu": [
+    {
+      "id": 1,
+      "rap": "RCP QUận 1",
+      "ngaychieu":"27/11/2020",
+      "giochieu": "9:00",
+      "phim": 1
+    },
+    {
+      "id": 2,
+      "rap": "RCP QUận 1",
+      "ngaychieu":"27/11/2020",
+      "giochieu": "12:00",
+      "phim": 1
+    },    {
+      "id": 3,
+      "rap": "RCP QUận 1",
+      "ngaychieu":"27/11/2020",
+      "giochieu": "13:00",
+      "phim": 1
+    },
+    {
+      "id": 4,
+      "rap": "RCP QUận 1",
+      "ngaychieu":"27/11/2020",
+      "giochieu": "9:00",
+      "phim": 1
+    },
+    {
+      "id": 5,
+      "rap": "RCP QUận 1",
+      "ngaychieu":"27/11/2020",
+      "giochieu": "15:00",
+      "phim": 1
+    },    {
+      "id": 6,
+      "rap": "RCP QUận 1",
+      "ngaychieu":"27/11/2020",
+      "giochieu": "18:00",
+      "phim": 1
+    },
+    {
+      "id": 7,
+      "rap": "RCP QUận 2",
+      "ngaychieu":"27/11/2020",
+      "giochieu": "9:00",
+      "phim": 1
+    },
+    {
+      "id": 8,
+      "rap": "RCP QUận 2",
+      "ngaychieu":"27/11/2020",
+      "giochieu": "13:00",
+      "phim": 1
+    },    {
+      "id": 9,
+      "rap": "RCP QUận 2",
+      "ngaychieu":"27/11/2020",
+      "giochieu": "18:00",
+      "phim": 1
+    },
+    {
+      "id": 10,
+      "rap": "RCP QUận 3",
+      "ngaychieu":"27/11/2020",
+      "giochieu": "13:00",
+      "phim": 1
+    },
+    {
+      "id": 11,
+      "rap": "RCP QUận 3",
+      "ngaychieu":"27/11/2020",
+      "giochieu": "15:00",
+      "phim": 1
+    },    {
+      "id": 12,
+      "rap": "RCP QUận 4",
+      "ngaychieu":"27/11/2020",
+      "giochieu": "15:00",
+      "phim": 1
+    },
+    {
+      "id": 13,
+      "rap": "RCP QUận 1",
+      "ngaychieu":"28/11/2020",
+      "giochieu": "9:00",
+      "phim": 1
+    },
+    {
+      "id": 14,
+      "rap": "RCP QUận 2",
+      "ngaychieu":"28/11/2020",
+      "giochieu": "12:00",
+      "phim": 1
+    },    {
+      "id": 15,
+      "rap": "RCP QUận 3",
+      "ngaychieu":"28/11/2020",
+      "giochieu": "9:00",
+      "phim": 1
+    },
+    {
+      "id": 16,
+      "rap": "RCP QUận 3",
+      "ngaychieu":"28/11/2020",
+      "giochieu": "13:00",
+      "phim": 1
+    },
+    {
+      "id": 5,
+      "rap": "RCP QUận 4",
+      "ngaychieu":"28/11/2020",
+      "giochieu": "15:00",
+      "phim": 1
+    },    {
+      "id": 17,
+      "rap": "RCP QUận 5",
+      "ngaychieu":"28/11/2020",
+      "giochieu": "18:00",
+      "phim": 1
+    },
+    {
+      "id": 18,
+      "rap": "RCP QUận 2",
+      "ngaychieu":"29/11/2020",
+      "giochieu": "9:00",
+      "phim": 1
+    },
+    {
+      "id": 19,
+      "rap": "RCP QUận 5",
+      "ngaychieu":"20/11/2020",
+      "giochieu": "13:00",
+      "phim": 1
+    },    {
+      "id": 20,
+      "rap": "RCP QUận 1",
+      "ngaychieu":"29/11/2020",
+      "giochieu": "18:00",
+      "phim": 1
+    },
+    {
+      "id": 21,
+      "rap": "RCP QUận 4",
+      "ngaychieu":"1/12/2020",
+      "giochieu": "13:00",
+      "phim": 1
+    },
+    {
+      "id": 22,
+      "rap": "RCP QUận 1",
+      "ngaychieu":"1/12/2020",
+      "giochieu": "15:00",
+      "phim": 1
+    },    {
+      "id": 23,
+      "rap": "RCP QUận 3",
+      "ngaychieu":"1/12/2020",
+      "giochieu": "15:00",
+      "phim": 1
+    }
+  ],
+  "rap": [
+    {
+      "id": 1,
+      "ten":"RCP Quận 1"
+    },
+    {
+      "id": 2,
+      "ten":"RCP Quận 2"
+    },
+    {
+      "id": 3,
+      "ten":"RCP Quận 3"
+    },
+    {
+      "id": 4,
+      "ten":"RCP Quận 4"
+    },
+    {
+      "id": 5,
+      "ten":"RCP Quận 5"
+    }
   ]
 }
