@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Info"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <!--Tên Đăng Nhập -->
+            <TextView
+                android:id="@+id/textView0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginLeft="36dp"
+                android:layout_marginTop="32dp"
+                android:text="Tên đăng nhập : "
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/editTextTenDN"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginLeft="36dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textSize="20dp" />
+
+
+
+            <!-- Họ tên -->
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginLeft="36dp"
+                android:layout_marginTop="32dp"
+                android:text="Họ và tên: "
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginLeft="36dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textSize="20dp" />
+            <!-- Kết thúc họ tên -->
+
+            <!-- Số điện thoại -->
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:text="Số điện thoại"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editTextPhone"
+                android:layout_width="228dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:inputType="phone"
+                android:textSize="18dp"/>
+            <!-- Kết thúc số điện thoại -->
+
+            <!-- Bắt đầu Email -->
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="24dp"
+                android:text="Email :"
+                android:textSize="17dp" />
+
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="279dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:textSize="17dp" />
+            <!-- Finish Email -->
+
+            <!-- Linear Layout ngày sinh và giới tính -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="141dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="203dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <!-- Start Ngày sinh -->
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Ngày Sinh :"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/editTextDate"
+                        android:layout_width="126dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="4dp"
+                        android:ems="10"
+                        android:inputType="date" />
+                    <!-- Finish Ngày sinh -->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="203dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/textViewGT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Giới tính :"
+                        android:textSize="20dp" />
+
+                    <Spinner
+                        android:id="@+id/spinner3"
+                        android:layout_width="97dp"
+                        android:layout_height="38dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <!-- Hết linear layout ngày sinh và giới tính -->
+
+
+            <!-- Start Khu vực -->
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:text="Khu Vực"
+                android:textSize="20dp" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="185dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp" />
+            <!-- Finish Khu vực -->
+
+            <!-- Start Rạp yêu thích -->
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginLeft="48dp"
+                android:layout_marginTop="16dp"
+                android:text="Rạp Yêu Thích"
+                android:textSize="20dp"/>
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="189dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginLeft="48dp" />
+            <!-- Finish Rạp yêu thích -->
+
+
+            <Button
+                android:id="@+id/btnChangeInfo"
+                android:layout_width="314dp"
+                android:layout_height="67dp"
+                android:layout_gravity="center"
+                android:text="Sửa thông tin"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>
