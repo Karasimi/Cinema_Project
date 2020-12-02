@@ -8,6 +8,7 @@ import android.widget.ExpandableListView;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,7 @@ import com.example.doanrapphim.adapter.adapterlich;
 import com.example.doanrapphim.adapter.listadapter;
 import com.example.doanrapphim.itf.OnItemClickListener;
 import com.example.doanrapphim.lop.Phim;
+import com.example.doanrapphim.lop.khungtgchieu;
 import com.example.doanrapphim.lop.lich;
 import com.example.doanrapphim.lop.lichchieu;
 import com.example.doanrapphim.lop.rap;
@@ -48,19 +50,17 @@ public class tablich extends Fragment {
     private listadapter ladapter;
 
     //lay du lieu
-    private final LinkedList<lichchieu> lichchieus = new LinkedList<>();
-    String d = "";
-    private JSONObject jsonRoot = null;
-    private JSONArray jsonArray;
-    int l;
+
     RecyclerView rc1;
     AdapterLichChieu adapterLichChieu;
 
 
     RecyclerView recyclerView;
     TextView all;
+    TextView trong;
     adapterlich adtlich;
     LinkedList<lich> p = new LinkedList<>();
+    LinkedList<khungtgchieu> k = new LinkedList<>();
     Calendar calendar = Calendar.getInstance();
     int ng, t, n;
     OnItemClickListener onItemClickListener;
@@ -72,6 +72,8 @@ public class tablich extends Fragment {
         recyclerView = view.findViewById(R.id.recycler);
         rc1 = view.findViewById(R.id.rcl);
         all = view.findViewById(R.id.all);
+        trong = view.findViewById(R.id.idnull);
+        trong.setVisibility(View.GONE);
         layNgay();
         onItemClickListener = new OnItemClickListener() {
             @Override
@@ -87,9 +89,14 @@ public class tablich extends Fragment {
         recyclerView.setAdapter(adtlich);
 
         layDsPhim();
-        adapterLichChieu = new AdapterLichChieu(layDsRap(),getContext());
-        rc1.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        rc1.setAdapter(adapterLichChieu);
+        if (layDsRap().size() == 0){
+            trong.setVisibility(View.VISIBLE);
+            trong.setText("Không Có Lịch Chiếu");
+        }else {
+            adapterLichChieu = new AdapterLichChieu(layDsRap(),getContext());
+            rc1.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+            rc1.setAdapter(adapterLichChieu);
+        }
         return view;
     }
 
@@ -184,44 +191,78 @@ public class tablich extends Fragment {
         String finalDay = format2.format(dt1);
         return finalDay;
     }
-
-    private void layDsPhim(){
+    private LinkedList<lichchieu> layDsPhim(){
+        Bundle bundle = getActivity().getIntent().getExtras();
+        int maPhim = bundle.getInt("id");
+        String d = "";
+        JSONObject jsonRoot = null;
+        JSONArray jsonArray;
+        LinkedList<lichchieu> dslich = new LinkedList<>();
+        int l;
         d = new adapterjson().read(getContext(), R.raw.data);
         try {
             jsonRoot = new JSONObject(d);
             jsonArray = jsonRoot.getJSONArray("lichchieu");
             l = jsonArray.length();
+            int count=0;
             for (int i = 0; i < l; i++) {
-                lichchieu lc = new lichchieu();
-                lc.setId(jsonArray.getJSONObject(i).getInt("id"));
-                lc.setRap(jsonArray.getJSONObject(i).getString("rap"));
-                lc.setNgaychieu(jsonArray.getJSONObject(i).getString("ngaychieu"));
-                lc.setGiochieu(jsonArray.getJSONObject(i).getString("giochieu"));
-                lc.setPhim(jsonArray.getJSONObject(i).getInt("phim"));
-                lichchieus.add(i,lc);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+                    lichchieu lc = new lichchieu();
+                    if (jsonArray.getJSONObject(i).getInt("phim") == maPhim) {
+                        lc.setId(jsonArray.getJSONObject(i).getInt("id"));
+                        lc.setRap(jsonArray.getJSONObject(i).getInt("rap"));
+                        lc.setNgaychieu(jsonArray.getJSONObject(i).getString("ngaychieu"));
+                        lc.setGiochieu(jsonArray.getJSONObject(i).getString("giochieu"));
+                        lc.setPhim(jsonArray.getJSONObject(i).getInt("phim"));
+                        dslich.add(count, lc);
+                        count++;
+                    }
+                }
+        } catch (JSONException e){
+        e.printStackTrace();
+    }
+        return dslich;
     }
 
     private LinkedList<rap> layDsRap(){
+        String d = "";
+         JSONObject jsonRoot = null;
+         JSONArray jsonArray;
+        int l;
         d = new adapterjson().read(getContext(), R.raw.data);
         LinkedList<rap> raps = new LinkedList<>();
         try {
             jsonRoot = new JSONObject(d);
             jsonArray = jsonRoot.getJSONArray("rap");
             l = jsonArray.length();
+            int count =0;
             for (int i = 0; i < l; i++) {
                 rap r = new rap();
-                r.setId(jsonArray.getJSONObject(i).getInt("id"));
-                r.setTenrap(jsonArray.getJSONObject(i).getString("ten"));
-                raps.add(i,r);
+                if (kiemTraRap(layDsPhim(),jsonArray.getJSONObject(i).getInt("id"))) {
+                    r.setId(jsonArray.getJSONObject(i).getInt("id"));
+                    r.setTenrap(jsonArray.getJSONObject(i).getString("ten"));
+                    raps.add(count, r);
+                    for (lichchieu a:layDsPhim()) {
+                        khungtgchieu t = new khungtgchieu();
+                        if (a.getRap() == jsonArray.getJSONObject(i).getInt("id")){
+                            t.setGio(a.getGiochieu());
+                            t.setNgaychieu(a.getNgaychieu());
+                            t.setId(a.getRap());
+                        }
+                        k.add(count,t);
+                    }
+                    count++;
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return raps;
+    }
+    private boolean kiemTraRap(LinkedList<lichchieu> a,int r){
+        for (lichchieu l: a) {
+            if (l.getRap() == r)
+            return true;
+        }
+        return false;
     }
 }

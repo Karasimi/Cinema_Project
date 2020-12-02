@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.pager);
         Toolbar toolbar = findViewById(R.id.tootbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle("");
         drawerLayout = findViewById(R.id.drawer_layout);
          //cac tab
         PagerAdapter1 pagerAdapter = new PagerAdapter1(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);

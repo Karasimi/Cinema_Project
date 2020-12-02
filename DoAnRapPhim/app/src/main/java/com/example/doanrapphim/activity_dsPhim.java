@@ -71,8 +71,6 @@ public class activity_dsPhim extends AppCompatActivity {
         });
 
     }
-
-
     public void tatca (View view){
         loc("tca");
         }

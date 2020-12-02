@@ -8,7 +8,7 @@ public class lichchieu {
     private String ngaychieu;
     private String giochieu;
     private int phim;
-    private String rap;
+    private int rap;
     private boolean expan;
 
     public boolean isExpan() {
@@ -19,11 +19,11 @@ public class lichchieu {
         this.expan = expan;
     }
 
-    public String getRap() {
+    public int getRap() {
         return rap;
     }
 
-    public void setRap(String rap) {
+    public void setRap(int rap) {
         this.rap = rap;
     }
 

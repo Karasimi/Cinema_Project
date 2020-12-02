@@ -50,10 +50,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.WordViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(context, activity_chiTietPhim.class);
                 intent.putExtra("id",p.get(position).getId());
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", p.get(position).getId());
-                tabthongtin t = new tabthongtin();
-                t.setArguments(bundle);
                 context.startActivity(intent);
             }
         });

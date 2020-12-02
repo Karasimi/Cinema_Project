@@ -51,7 +51,6 @@ public class adaptertopphim extends RecyclerView.Adapter<adaptertopphim.ViewHold
             public void onClick(View v) {
                 Intent intent = new Intent(context, activity_chiTietPhim.class);
                 intent.putExtra("id",p.get(position).getId());
-                intent.putExtra("id1",p.get(position).getId());
                 context.startActivity(intent);
             }
         });

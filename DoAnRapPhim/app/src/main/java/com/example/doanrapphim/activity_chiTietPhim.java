@@ -1,6 +1,8 @@
 package com.example.doanrapphim;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +20,7 @@ import com.example.doanrapphim.activity_chitiet.tabthongtin;
 import com.example.doanrapphim.adapter.PagerAdapter;
 import com.example.doanrapphim.adapter.adapterjson;
 import com.example.doanrapphim.lop.Phim;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
@@ -25,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class activity_chiTietPhim extends AppCompatActivity {
+    CollapsingToolbarLayout collapsingToolbarLayout;
     Phim phim = new Phim();
     Toolbar toolbar;
     ImageView imageView;
@@ -41,9 +46,10 @@ public class activity_chiTietPhim extends AppCompatActivity {
         setContentView(R.layout.activity_chi_tiet_phim);
         anhxa();
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle("Chi Tiết Phim");
+        if (getSupportActionBar() !=null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
        viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -119,6 +125,7 @@ public class activity_chiTietPhim extends AppCompatActivity {
         txtTuoi = findViewById(R.id.tuoi);
         txtChamDiem = findViewById(R.id.chamdiem);
         toolbar = findViewById(R.id.toolbar);
+        collapsingToolbarLayout = findViewById(R.id.collapsing);
     }
 
     public void guiDL(int i) {
@@ -127,5 +134,4 @@ public class activity_chiTietPhim extends AppCompatActivity {
         bundle.putInt("id", i);
         t.setArguments(bundle);
     }
-
 }
