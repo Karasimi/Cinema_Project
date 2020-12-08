@@ -15,6 +15,7 @@
         />
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
+        android:background="@color/cardview_light_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
