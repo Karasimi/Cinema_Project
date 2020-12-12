@@ -6,11 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity_dsPhim">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </androidx.appcompat.widget.Toolbar>
     <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -26,7 +21,6 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:background="@drawable/button"
             android:layout_marginRight="5dp"
             android:id="@+id/btn1"
             android:textSize="10sp"
@@ -37,7 +31,6 @@
             android:text="Tất Cả" />
 
         <Button
-            android:background="@drawable/button"
             android:id="@+id/btn2"
             android:textSize="10sp"
             android:layout_width="20dp"
@@ -47,7 +40,6 @@
             android:text="Đang Chiếu" />
 
         <Button
-            android:background="@drawable/button"
             android:layout_marginLeft="5dp"
             android:id="@+id/btn3"
             android:textSize="10sp"

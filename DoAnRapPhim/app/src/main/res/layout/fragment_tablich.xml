@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layouttt"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="activity_chitiet.tablich">
@@ -22,31 +21,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Chọn Ngày Xem : "/>
-    <LinearLayout
+    <RelativeLayout
         android:layout_marginTop="20dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <androidx.recyclerview.widget.RecyclerView
-            android:background="@color/black"
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </androidx.recyclerview.widget.RecyclerView>
-        </LinearLayout>
         <TextView
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:id="@+id/all"
-            android:textColor="@color/white"
-            android:background="@color/black"
-            android:layout_width="match_parent"
+            android:id="@+id/ngay"
+            android:text="Ngày"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:textSize="16pt"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
-    </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcl"
+        <Button
+            android:id="@+id/chonngay"
+            android:text="Chọn Ngày"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+        </Button>
+    </RelativeLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ExpandableListView
+                android:id="@+id/list"
+                android:divider="@color/red"
+                android:childDivider="@color/black"
+                android:dividerHeight="2dp"
+                android:scrollbars="none"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="match_parent">
+            </ExpandableListView>
+        </LinearLayout>
     </LinearLayout>
+</LinearLayout>

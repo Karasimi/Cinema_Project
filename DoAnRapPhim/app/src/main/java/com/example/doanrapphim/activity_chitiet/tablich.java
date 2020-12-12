@@ -1,43 +1,26 @@
 package com.example.doanrapphim.activity_chitiet;
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ExpandableListView;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doanrapphim.R;
-import com.example.doanrapphim.adapter.AdapterLichChieu;
-import com.example.doanrapphim.adapter.MyAdapter;
-import com.example.doanrapphim.adapter.adapterjson;
-import com.example.doanrapphim.adapter.adapterlich;
 import com.example.doanrapphim.adapter.listadapter;
-import com.example.doanrapphim.itf.OnItemClickListener;
-import com.example.doanrapphim.lop.Phim;
-import com.example.doanrapphim.lop.lich;
-import com.example.doanrapphim.lop.lichchieu;
-import com.example.doanrapphim.lop.rap;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,182 +29,72 @@ public class tablich extends Fragment {
     private List<group> groups;
     private Map<group, List<item>> litem;
     private listadapter ladapter;
-
-    //lay du lieu
-    private final LinkedList<lichchieu> lichchieus = new LinkedList<>();
-    String d = "";
-    private JSONObject jsonRoot = null;
-    private JSONArray jsonArray;
-    int l;
-    RecyclerView rc1;
-    AdapterLichChieu adapterLichChieu;
-
-
-    RecyclerView recyclerView;
-    TextView all;
-    adapterlich adtlich;
-    LinkedList<lich> p = new LinkedList<>();
+    TextView ngay;
+    Button chonngay;
     Calendar calendar = Calendar.getInstance();
-    int ng, t, n;
-    OnItemClickListener onItemClickListener;
-
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tablich, container, false);
-        recyclerView = view.findViewById(R.id.recycler);
-        rc1 = view.findViewById(R.id.rcl);
-        all = view.findViewById(R.id.all);
-        layNgay();
-        onItemClickListener = new OnItemClickListener() {
+        expandableListView = view.findViewById(R.id.list);
+        ngay = view.findViewById(R.id.ngay);
+        chonngay = view.findViewById(R.id.chonngay);
+        litem = getLitem();
+        groups =  new ArrayList<>(litem.keySet());
+        ladapter = new listadapter(groups,litem);
+        ngay.setText(simpleDateFormat.format(calendar.getTime()));
+        expandableListView.setAdapter(ladapter);
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public void OnItemClickListener(String s) {
-                all.setText(s);
-            }
-        };
-        recyclerView.setHasFixedSize(false);
-        GridLayoutManager gridLayout = new GridLayoutManager(getContext(),7);
-        recyclerView.setLayoutManager(gridLayout);
-        adtlich = new adapterlich(p, getContext());
-        adtlich.onItemClickListener = onItemClickListener;
-        recyclerView.setAdapter(adtlich);
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-        layDsPhim();
-        adapterLichChieu = new AdapterLichChieu(layDsRap(),getContext());
-        rc1.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        rc1.setAdapter(adapterLichChieu);
+                Intent intent = new Intent(getContext(),datghe.class);
+                startActivity(intent);
+                return false;
+
+            }
+        });
+        chonngay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chonNgay();
+            }
+        });
+
         return view;
     }
-
-    public void layNgay() {
-        ng = calendar.get(calendar.DATE);
-        t = calendar.get(calendar.MONTH) + 1;
-        n = calendar.get(calendar.YEAR);
-        for (int i = 0; i < 7; i++) {
-            lich l = new lich();
-            l.setNgay(ng);
-            l.setThang(t);
-            l.setNam(n);
-            l.setThu(chonNgay(ng, t, n));
-            p.add(i, l);
-            kiemTra(ng, t, n);
-        }
-    }
-
-    public void kiemTra(int ngay, int thang, int nam) {
-        switch (thang) {
-            case 2:
-                if (((n % 4 == 0) && (n % 100 != 0)) || (n % 400 == 0)) {
-                    if (ngay < 29) {
-                        ng += 1;
-                    } else if (thang < 12) {
-                        ng = 1;
-                        t += 1;
-                    } else {
-                        ng = 1;
-                        t = 1;
-                        n += 1;
-                    }
-                } else if (ngay < 28) {
-                    ng += 1;
-                } else if (thang < 12) {
-                    ng = 1;
-                    t += 1;
-                } else {
-                    ng = 1;
-                    t = 1;
-                    n += 1;
-                }
-                break;
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12: {
-                if (ngay < 31) {
-                    ng += 1;
-                } else if (thang < 12) {
-                    ng = 1;
-                    t += 1;
-                } else {
-                    ng = 1;
-                    t = 1;
-                    n += 1;
-                }
+    private Map<group, List<item>> getLitem() {
+        Map<group, List<item>> listMap = new HashMap<>();
+        String e[] = getResources().getStringArray(R.array.chinhanh);
+        String e1[] = getResources().getStringArray(R.array.thoigian);
+        for (String c: e
+        ) {
+            int i=0;
+            group a = new group(c,i);
+            i++;
+            List<item> ob = new ArrayList<>();
+            for (int j=0; j < e1.length;j++){
+                ob.add(new item(e1[j]));
             }
-            break;
-            case 4:
-            case 6:
-            case 9:
-            case 11: {
-                if (ngay < 30) {
-                    ng += 1;
-                } else if (thang < 12) {
-                    ng = 1;
-                    t += 1;
-                } else {
-                    ng = 1;
-                    t = 1;
-                    n += 1;
-                }
+            listMap.put(a,ob);
+        }
+        return listMap;
+    }
+    private void chonNgay(){
+        int ng = calendar.get(calendar.DATE);
+        int t = calendar.get(calendar.MONTH);
+        int n = calendar.get(calendar.YEAR);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(year,month,dayOfMonth);
+                ngay.setText(simpleDateFormat.format(calendar.getTime()));
             }
-            break;
-        }
+        },n,t,ng);
+        datePickerDialog.show();
     }
 
-    private String chonNgay(int ng, int t, int n) {
-        String input_date = ng + "/" + t + "/" + n;
-        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
-        Date dt1 = null;
-        try {
-            dt1 = format1.parse(input_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        DateFormat format2 = new SimpleDateFormat("EEE");
-        String finalDay = format2.format(dt1);
-        return finalDay;
-    }
 
-    private void layDsPhim(){
-        d = new adapterjson().read(getContext(), R.raw.data);
-        try {
-            jsonRoot = new JSONObject(d);
-            jsonArray = jsonRoot.getJSONArray("lichchieu");
-            l = jsonArray.length();
-            for (int i = 0; i < l; i++) {
-                lichchieu lc = new lichchieu();
-                lc.setId(jsonArray.getJSONObject(i).getInt("id"));
-                lc.setRap(jsonArray.getJSONObject(i).getString("rap"));
-                lc.setNgaychieu(jsonArray.getJSONObject(i).getString("ngaychieu"));
-                lc.setGiochieu(jsonArray.getJSONObject(i).getString("giochieu"));
-                lc.setPhim(jsonArray.getJSONObject(i).getInt("phim"));
-                lichchieus.add(i,lc);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-    }
-
-    private LinkedList<rap> layDsRap(){
-        d = new adapterjson().read(getContext(), R.raw.data);
-        LinkedList<rap> raps = new LinkedList<>();
-        try {
-            jsonRoot = new JSONObject(d);
-            jsonArray = jsonRoot.getJSONArray("rap");
-            l = jsonArray.length();
-            for (int i = 0; i < l; i++) {
-                rap r = new rap();
-                r.setId(jsonArray.getJSONObject(i).getInt("id"));
-                r.setTenrap(jsonArray.getJSONObject(i).getString("ten"));
-                raps.add(i,r);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return raps;
-    }
 }

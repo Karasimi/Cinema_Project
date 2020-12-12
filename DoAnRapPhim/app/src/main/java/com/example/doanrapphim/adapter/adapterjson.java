@@ -23,5 +23,6 @@ public class adapterjson {
             sb.append("\n");
         }
         return sb.toString();
+
     }
 }
