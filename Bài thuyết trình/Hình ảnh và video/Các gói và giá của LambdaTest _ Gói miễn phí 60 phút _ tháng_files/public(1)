@@ -1,0 +1,3 @@
+.siq-info-banner.timer {
+    display: none;
+}

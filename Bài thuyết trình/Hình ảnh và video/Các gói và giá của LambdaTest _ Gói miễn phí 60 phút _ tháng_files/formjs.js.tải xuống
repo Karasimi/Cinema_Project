@@ -1,0 +1,105 @@
+$(document).ready(function () {
+	$("#subscribe1").submit(function () {
+		var t = $(this),
+			e = t.serialize(),
+			a = t.attr("method");
+		return $(".subscribeMsg").hide().addClass("response-waiting").text("Thank you for Subscribe for Newsletter").fadeIn(200).fadeOut(1e4), $.ajax({
+			type: a,
+			url: "https://accounts.lambdatest.com/api/forms/subscribe-lambdatest-newsletter",
+			data: e,
+			success: function (t) {
+				$("#NewsletterEmail").val(null)
+			}
+		}), !1
+	}), $("#featcherForm2222").submit(function () {
+		var t = $(this),
+			e = t.serialize(),
+			a = t.attr("method");
+		return $(".demo-thnk").hide().addClass("response-waiting").text("We have received your request and shall get back to you. Thank you!").fadeIn(200).fadeOut(1e4), $.ajax({
+			type: a,
+			url: "https://backend.lambdatest.com/api/forms/contact",
+			data: e,
+			success: function (t) {
+				$("#featureemail, #inputFirstName1, #inputLastName1, #chech1").val(null)
+			}
+		}), !1
+	}), $("#contctus").submit(function () {
+		var t = $(this),
+			e = t.serialize(),
+			a = t.attr("method");
+		return $(".demo-thnk").hide().addClass("response-waiting").text("We have received your request and shall get back to you. Thank you!").fadeIn(200).fadeOut(1e4), $.ajax({
+			type: a,
+			url: "https://backend.lambdatest.com/api/forms/contact",
+			data: e,
+			success: function (t) {
+				$("#inputEmail, #inputFirstName2, #inputLastName2, #contrycode, #mobileid, #query_type1, #messageid").val(null);
+				dataLayer.push({
+					'event': 'eventToSend',
+					'eventCategory': 'FormSubmit',
+					'eventAction': 'ContactUsForm',
+					'eventLabel': window.location.href,
+				});
+			}
+		}), !1
+	}), $("#demoform").submit(function () {
+		var t = $(this),
+			e = t.serialize(),
+			a = t.attr("method");
+		return $(".demo-thnk").hide().addClass("response-waiting").text("We have received your request and shall get back to you. Thank you!").fadeIn(200).fadeOut(1e4), $.ajax({
+			type: a,
+			url: "https://backend.lambdatest.com/api/forms/contact",
+			data: e,
+			success: function (t) {
+				$("#orgname, #inputFirstName, #inputLastName, #inputEmail, #mobileid ").val(null);
+				dataLayer.push({
+					'event': 'eventToSend',
+					'eventCategory': 'FormSubmit',
+					'eventAction': 'DemoFormSubmit',
+					'eventLabel': window.location.href,
+				});
+			}
+		}), !1
+	})
+}), $(".faq-list li a").on("click", function () {
+	var t = $(this).text();
+	$("#theme_title").text(t)
+});
+
+$(document).ready(function () {
+	$("#my_form").submit(function (event) {
+		event.preventDefault(); //prevent default action POST
+		var myusername = $(this).serialize();
+		var useremail = $('#useremail').val();
+		$.ajax({
+			type: "POST",
+			url: "https://backend.lambdatest.com/api/user/status",
+			data: myusername
+		}).done(function (response, textStatus) { //
+			//console.log(response.type, textStatus);
+			if (response.type == 'exists') {
+				window.location.href = "https://accounts.lambdatest.com/login?email=" + useremail;
+			} else {
+				window.location.href = "https://accounts.lambdatest.com/register?email=" + useremail;
+			}
+
+		});
+	});
+
+	$("#featcherForm").submit(function (event) {
+		event.preventDefault(); //prevent default action POST
+		var myusername = $(this).serialize();
+		//var useremail = $('#useremail').val();
+		$.ajax({
+			type: "POST",
+			url: "https://backend.lambdatest.com/api/forms/contact",
+			data: myusername,
+			success: function (response) {
+				//$('#answers').html(response);
+				//console.log(response, response.message);
+				$(".demo-thnk").text(response.message).fadeIn(200).fadeOut(10000);
+				$("#featureemail, #inputFirstName1, #inputLastName1, #chech1").val(null);
+			}
+		})
+	});
+
+});

@@ -1,0 +1,79 @@
+var Page_Url = window.location.href;
+
+function accessCookie(cookieName) {
+    var name = cookieName + "=";
+    var allCookieArray = document.cookie.split(';');
+    for (var i = 0; i < allCookieArray.length; i++) {
+        var temp = allCookieArray[i].trim();
+        if (temp.indexOf(name) == 0)
+            return temp.substring(name.length, temp.length);
+    }
+    return null;
+}
+
+function onStartTesting() {
+    dataLayer.push({
+        'event': 'eventToSend',
+        'eventCategory': 'Click',
+        'eventAction': 'StartTestingClick',
+        'eventLabel': Page_Url,
+    });
+}
+
+function onLoadUserId() {
+    var user = accessCookie("user_id");
+    // console.log(user);
+    dataLayer.push({ 
+        "userId" : user 
+        });     
+}
+onLoadUserId();
+
+
+function onClickSocialIcon(socialnetworkname) {
+    dataLayer.push({
+        'event': 'eventToSend',
+        'eventCategory': 'Click',
+        'eventAction': 'SocialIconClick',
+        'eventLabel': socialnetworkname,
+    });
+}
+
+function onClickCallUs() {
+    dataLayer.push({
+        'event': 'eventToSend',
+        'eventCategory': 'Click',
+        'eventAction': 'CallButtonClick',
+        'eventLabel': Page_Url,
+    });
+}
+
+function onClickChatBtn() {
+    dataLayer.push({
+        'event': 'eventToSend',
+        'eventCategory': 'Click',
+        'eventAction': 'StartChat',
+        'eventLabel': Page_Url,
+    });
+}
+
+function onClickEmailBtn() {
+    dataLayer.push({
+        'event': 'eventToSend',
+        'eventCategory': 'Click',
+        'eventAction': 'EmailClick',
+        'eventLabel': Page_Url
+    });
+}
+
+
+$(document).ready(function() {
+    $(".infobox a[href='https://accounts.lambdatest.com/register']").click(function() {
+        dataLayer.push({
+            'event': 'eventToSend',
+            'eventCategory': 'Click',
+            'eventAction': 'StartTestingClick',
+            'eventLabel': window.location.href,
+        });
+    });
+});
