@@ -1,0 +1,14 @@
+com/example/giaodien/ReadJSON.java
+ com.example.giaodien.ReadJSON
+Info/customer.java
+ Info.customer
+com/example/giaodien/BuildConfig.java
+ com.example.giaodien.BuildConfig
+com/example/giaodien/Info.java
+ com.example.giaodien.Info
+com/example/giaodien/MainActivity.java
+ com.example.giaodien.MainActivity
+com/example/giaodien/deal.java
+ com.example.giaodien.deal
+Info/location.java
+ Info.location
