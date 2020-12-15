@@ -6,58 +6,56 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SapchieuFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedList;
+
+
 public class SapchieuFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SapchieuFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DangchieuFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SapchieuFragment newInstance(String param1, String param2) {
-        SapchieuFragment fragment = new SapchieuFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    ViewPager2 viewPager2;
+    LinkedList<Phim> p = new LinkedList<>();
+    String d ="";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {//view tra ve
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sapchieu, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_sapchieu, container, false);
+        anhXa(view);
+        layDsPhim();
+        Adapterdsphim adapterdsphim = new Adapterdsphim(p,getContext());
+        viewPager2.setAdapter(adapterdsphim);
+        return  view;
+    }
+    public  void anhXa(View view){
+        viewPager2 = view.findViewById(R.id.pager1);
+    }
+    private void layDsPhim() {
+        d = new adapterjson().read(getContext(), R.raw.data);
+        JSONObject jsonRoot = null;
+        JSONArray jsonArray;
+        int l;
+        try {
+            jsonRoot = new JSONObject(d);
+            jsonArray = jsonRoot.getJSONArray("phim");
+            l = jsonArray.length();
+            for (int i = 0; i < l; i++) {
+                Phim phim = new Phim();
+                phim.setTenphim(jsonArray.getJSONObject(i).getString("tenphim"));
+                phim.setHinhanh(jsonArray.getJSONObject(i).getString("hinhanh"));
+                phim.setTheloai(jsonArray.getJSONObject(i).getString("theloai"));
+                phim.setDaodien(jsonArray.getJSONObject(i).getString("daodien"));
+                phim.setId(jsonArray.getJSONObject(i).getInt("maphim"));
+                phim.setTrangthai(jsonArray.getJSONObject(i).getInt("trangthai"));
+                p.add(i, phim);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
