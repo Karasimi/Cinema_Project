@@ -146,5 +146,195 @@
       "diem": 9,
       "trangthai": 2
     }
+  ],
+  "lichchieu": [
+    {
+      "id": 1,
+      "rap":2,
+      "ngaychieu":"11/12/2020",
+      "giochieu": "9:00",
+      "phim": 1
+    },
+    {
+      "id": 1,
+      "rap": 1,
+      "ngaychieu":"15/12/2020",
+      "giochieu": "12:00",
+      "phim": 1
+    },    {
+      "id": 3,
+      "rap": 2,
+      "ngaychieu":"16/12/2020",
+      "giochieu": "13:00",
+      "phim": 1
+    },
+    {
+      "id": 4,
+      "rap": 1,
+      "ngaychieu":"7/12/2020",
+      "giochieu": "9:00",
+      "phim": 1
+    },
+    {
+      "id": 5,
+      "rap": 5,
+      "ngaychieu":"17/12/2020",
+      "giochieu": "15:00",
+      "phim": 1
+    },    {
+      "id": 6,
+      "rap": 4,
+      "ngaychieu":"15/12/2020",
+      "giochieu": "18:00",
+      "phim": 1
+    },
+    {
+      "id": 7,
+      "rap": 3,
+      "ngaychieu":"16/12/2020",
+      "giochieu": "9:00",
+      "phim": 1
+    },
+    {
+      "id": 8,
+      "rap": 5,
+      "ngaychieu":"15/12/2020",
+      "giochieu": "13:00",
+      "phim": 1
+    },    {
+      "id": 9,
+      "rap": 4,
+      "ngaychieu":"15/12/2020",
+      "giochieu": "18:00",
+      "phim": 1
+    },
+    {
+      "id": 10,
+      "rap": 2,
+      "ngaychieu":"16/12/2020",
+      "giochieu": "13:00",
+      "phim": 1
+    },
+    {
+      "id": 11,
+      "rap": 2,
+      "ngaychieu":"16/12/2020",
+      "giochieu": "15:00",
+      "phim": 1
+    },    {
+      "id": 12,
+      "rap":2,
+      "ngaychieu":"15/12/2020",
+      "giochieu": "15:00",
+      "phim": 1
+    },
+    {
+      "id": 13,
+      "rap": 2,
+      "ngaychieu":"16/12/2020",
+      "giochieu": "9:00",
+      "phim": 1
+    },
+    {
+      "id": 14,
+      "rap": 2,
+      "ngaychieu":"15/12/2020",
+      "giochieu": "12:00",
+      "phim": 1
+    },    {
+      "id": 15,
+      "rap": 2,
+      "ngaychieu":"15/12/2020",
+      "giochieu": "9:00",
+      "phim": 1
+    },
+    {
+      "id": 16,
+      "rap":2,
+      "ngaychieu":"15/12/2020",
+      "giochieu": "13:00",
+      "phim": 1
+    },
+    {
+      "id": 5,
+      "rap":2,
+      "ngaychieu":"15/12/2020",
+      "giochieu": "15:00",
+      "phim": 1
+    },    {
+      "id": 17,
+      "rap": 2,
+      "ngaychieu":"16/12/2020",
+      "giochieu": "18:00",
+      "phim": 1
+    },
+    {
+      "id": 18,
+      "rap":2,
+      "ngaychieu":"16/12/2020",
+      "giochieu": "9:00",
+      "phim": 1
+    },
+    {
+      "id": 19,
+      "rap": 5,
+      "ngaychieu":"16/12/2020",
+      "giochieu": "13:00",
+      "phim": 1
+    },    {
+      "id": 20,
+      "rap": 2,
+      "ngaychieu":"16/12/2020",
+      "giochieu": "18:00",
+      "phim": 1
+    },
+    {
+      "id": 21,
+      "rap": 4,
+      "ngaychieu":"15/12/2020",
+      "giochieu": "13:00",
+      "phim": 1
+    },
+    {
+      "id": 22,
+      "rap": 3,
+      "ngaychieu":"15/12/2020",
+      "giochieu": "15:00",
+      "phim": 1
+    },    {
+      "id": 23,
+      "rap": 3,
+      "ngaychieu":"15/12/2020",
+      "giochieu": "15:00",
+      "phim": 2
+    }
+  ],
+  "rap": [
+    {
+      "id": 1,
+      "ten":"RCP Quận 1"
+    },
+    {
+      "id": 2,
+      "ten":"RCP Quận 2"
+    },
+    {
+      "id": 3,
+      "ten":"RCP Quận 3"
+    },
+    {
+      "id": 4,
+      "ten":"RCP Quận 4"
+    },
+    {
+      "id": 5,
+      "ten":"RCP Quận 5"
+    }
+  ],
+  "tk": [
+    {"gmail": "trung@gmail.com",
+      "password": "123456"},
+    {"gmail": "trung123@gmail.com",
+      "password": "123456"}
   ]
 }

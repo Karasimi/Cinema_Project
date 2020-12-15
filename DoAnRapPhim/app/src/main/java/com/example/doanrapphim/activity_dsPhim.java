@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,7 @@ public class activity_dsPhim extends AppCompatActivity {
     LinearLayout linearLayout;
     RecyclerView recyclerView;
     SearchView searchView;
+    Toolbar toolbar;
     private JSONObject jsonRoot = null;
     private JSONArray jsonArray;
     int l;
@@ -39,6 +41,11 @@ public class activity_dsPhim extends AppCompatActivity {
         setContentView(R.layout.activity_ds_phim);
         anhxa();
         searchView.clearFocus();
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Danh Sách Phim");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         layDsPhim();
         myAdapter = new MyAdapter(listPhim, this);
         recyclerView.setAdapter(myAdapter);
@@ -64,7 +71,7 @@ public class activity_dsPhim extends AppCompatActivity {
         });
 
     }
-        public void tatca (View view){
+    public void tatca (View view){
         loc("tca");
         }
         public void dachieu (View view){
@@ -77,6 +84,7 @@ public class activity_dsPhim extends AppCompatActivity {
             linearLayout = findViewById(R.id.filter);
             recyclerView = findViewById(R.id.recycle);
             searchView = findViewById(R.id.search);
+            toolbar = findViewById(R.id.toolbar);
         }
         private void filter(String s){
           LinkedList<Phim> filter = new LinkedList<>();

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/aa"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DangnhapFragment">
+
+    <TextView
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        android:text="ĐĂNG NHẬP"
+        android:padding="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:background="@drawable/edt"
+        android:drawableStart="@drawable/tk"
+        android:id="@+id/dangnhap_taikhoan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="20sp"
+        android:inputType="textEmailAddress"
+        android:hint=" TÀI KHOẢN"
+        android:ems="10"
+        android:drawableLeft="@drawable/tk" />
+
+    <EditText
+        android:background="@drawable/edt"
+        android:drawableStart="@drawable/mk"
+        android:id="@+id/dangnhap_matkhau"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="15dp"
+        android:textSize="20sp"
+        android:hint=" MẬT KHẨU"
+        android:inputType="textPassword"
+        android:drawableLeft="@drawable/mk" />
+
+   <TextView
+       android:id="@+id/tvmessage"
+       android:textSize="10dp"
+       android:textStyle="bold"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+
+    <Button
+        android:background="@drawable/edt"
+        android:id="@+id/btn_login"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="ĐĂNG NHẬP" />
+    <Button
+        android:background="@drawable/edt"
+        android:layout_marginTop="10dp"
+        android:id="@+id/dangnhap_dangky"
+        android:text="Đăng ký"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

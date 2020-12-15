@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layouttt"
+    android:orientation="vertical"
     android:layout_width="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_height="match_parent"
     tools:context="activity_chitiet.tablich">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -21,44 +28,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Chọn Ngày Xem : "/>
-    <RelativeLayout
+    <LinearLayout
         android:layout_marginTop="20dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/ngay"
-            android:text="Ngày"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="50dp"
-            android:textSize="16pt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
-        <Button
-            android:id="@+id/chonngay"
-            android:text="Chọn Ngày"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
-        </Button>
-    </RelativeLayout>
-        <LinearLayout
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
+        <androidx.recyclerview.widget.RecyclerView
+            android:background="@color/black"
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ExpandableListView
-                android:id="@+id/list"
-                android:divider="@color/red"
-                android:childDivider="@color/black"
-                android:dividerHeight="2dp"
-                android:scrollbars="none"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </ExpandableListView>
+        </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
+        <TextView
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:id="@+id/all"
+            android:textColor="@color/white"
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
     </LinearLayout>
-</LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:id="@+id/idnull"
+        android:text="19sp"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+

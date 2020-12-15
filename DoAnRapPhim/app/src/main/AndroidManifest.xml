@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.doanrapphim">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,15 +12,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAnRapPhim">
-        <activity android:name=".activity_dsPhim"></activity>
-        <activity android:name=".activity_chiTietPhim" />
-        <activity android:name=".activity_chitiet.datghe" />
-
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:name=".activity_dsPhim"
+            android:parentActivityName=".activity_trangchu" />
+        <activity
+            android:name=".activity_chiTietPhim"
+            android:parentActivityName=".activity_trangchu" />
+        <activity android:name=".activity_chitiet.datghe" />
+        <activity android:name=".activity_trangcanhan" android:parentActivityName=".activity_trangchu"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".activity_trangchu" />
+        <activity android:name=".activity_dangnhap">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -23,17 +23,15 @@ import com.example.doanrapphim.lop.Phim;
 import com.example.doanrapphim.lop.khungtgchieu;
 import com.example.doanrapphim.lop.lichchieu;
 import com.example.doanrapphim.lop.rap;
-import com.google.android.youtube.player.internal.n;
-
 import java.util.LinkedList;
 
 public class childlichchieu extends RecyclerView.Adapter<childlichchieu.ViewHolder> {
     private LayoutInflater mInflater;
-    private LinkedList<khungtgchieu> p = new LinkedList<>();
+    private LinkedList<lichchieu> p = new LinkedList<>();
     Context context;
     private  RecyclerView.RecycledViewPool child = new RecyclerView.RecycledViewPool();
 
-    public childlichchieu(LinkedList<khungtgchieu> p, Context context) {
+    public childlichchieu(LinkedList<lichchieu> p, Context context) {
         this.p = p;
         this.context = context;
         mInflater = LayoutInflater.from(context);
@@ -49,7 +47,7 @@ public class childlichchieu extends RecyclerView.Adapter<childlichchieu.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull childlichchieu.ViewHolder holder, int position) {
-        holder.btn.setText(p.get(position).getGio());
+        holder.btn.setText(p.get(position).getGiochieu());
     }
 
     @Override
