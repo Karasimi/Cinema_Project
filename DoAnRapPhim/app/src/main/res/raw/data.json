@@ -336,5 +336,46 @@
       "password": "123456"},
     {"gmail": "trung123@gmail.com",
       "password": "123456"}
+  ],
+  "ghe": [
+    {
+      "id": 1,
+      "rap": 1,
+      "hang": "A",
+      "cot": 1
+    },
+    {
+      "id": 2,
+      "rap": 1,
+      "hang": "A",
+      "cot": 2
+    },
+    {
+      "id": 3,
+      "rap": 1,
+      "hang": "A",
+      "cot": 3
+    },    {
+      "id": 4,
+      "rap": 1,
+      "hang": "A",
+      "cot": 4
+    },
+    {
+      "id": 5,
+      "rap": 1,
+      "hang": "A",
+      "cot": 5
+    },    {
+      "id": 6,
+      "rap": 1,
+      "hang": "B",
+      "cot": 1
+    },    {
+      "id": 1,
+      "rap": 1,
+      "hang": "B",
+      "cot": 2
+    }
   ]
 }

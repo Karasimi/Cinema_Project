@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doanrapphim.R;
 import com.example.doanrapphim.activity_chiTietPhim;
+import com.example.doanrapphim.activity_chitiet.datghe;
 import com.example.doanrapphim.activity_chitiet.tabthongtin;
 import com.example.doanrapphim.lop.Phim;
 import com.example.doanrapphim.lop.khungtgchieu;
@@ -48,6 +49,13 @@ public class childlichchieu extends RecyclerView.Adapter<childlichchieu.ViewHold
     @Override
     public void onBindViewHolder(@NonNull childlichchieu.ViewHolder holder, int position) {
         holder.btn.setText(p.get(position).getGiochieu());
+        holder.btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, datghe.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

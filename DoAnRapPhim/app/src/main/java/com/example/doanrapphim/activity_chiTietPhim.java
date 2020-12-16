@@ -49,6 +49,7 @@ public class activity_chiTietPhim extends AppCompatActivity {
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
        viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
         //lay du lieu
         anhxa();
        layDsPhim();
