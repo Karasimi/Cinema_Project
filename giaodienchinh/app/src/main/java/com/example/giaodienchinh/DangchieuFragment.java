@@ -49,6 +49,7 @@ public class DangchieuFragment extends Fragment {
                 phim.setTenphim(jsonArray.getJSONObject(i).getString("tenphim"));
                 phim.setHinhanh(jsonArray.getJSONObject(i).getString("hinhanh"));
                 phim.setTheloai(jsonArray.getJSONObject(i).getString("theloai"));
+                phim.setDaodien(jsonArray.getJSONObject(i).getString("daodien"));
                 phim.setId(jsonArray.getJSONObject(i).getInt("maphim"));
                 phim.setTrangthai(jsonArray.getJSONObject(i).getInt("trangthai"));
                 p.add(i, phim);

@@ -8,6 +8,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class adapterjson {
+
+//    public  static  String  readd(Context context, int data){
+//        InputStream is=context.getResources()
+//    }
     public static String read(Context context, int data) {
         InputStream is = context.getResources().openRawResource(data);
         BufferedReader br = new BufferedReader(new InputStreamReader(is));

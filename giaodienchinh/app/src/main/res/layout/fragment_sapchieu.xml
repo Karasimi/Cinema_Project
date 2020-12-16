@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_bright"
-    tools:context=".DangchieuFragment">
+    tools:context=".SapchieuFragment">
 
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="20sp"
-        android:layout_margin="20dp"
-        android:text="@string/sapchieu_fragment" />
+        android:layout_margin="20dp"/>
+
 
 </FrameLayout>
