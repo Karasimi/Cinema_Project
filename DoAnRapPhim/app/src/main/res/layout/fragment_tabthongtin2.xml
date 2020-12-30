@@ -5,18 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Info"
-    android:orientation="vertical">
+    tools:context=".activity_trangcanhan"
+    android:orientation="vertical"
+    android:background="@color/cam">
 
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            >
             <!--Tên Đăng Nhập -->
             <TextView
                 android:id="@+id/textView0"
@@ -26,7 +29,8 @@
                 android:layout_marginLeft="36dp"
                 android:layout_marginTop="32dp"
                 android:text="Tên đăng nhập : "
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
             <EditText
                 android:id="@+id/editTextTenDN"
                 android:layout_width="329dp"
@@ -36,7 +40,8 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text=""
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
 
 
@@ -49,7 +54,8 @@
                 android:layout_marginLeft="36dp"
                 android:layout_marginTop="32dp"
                 android:text="Họ và tên: "
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <EditText
                 android:id="@+id/editTextName"
@@ -60,7 +66,8 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text=""
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                />
             <!-- Kết thúc họ tên -->
 
             <!-- Số điện thoại -->
@@ -72,7 +79,8 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
                 android:text="Số điện thoại"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:textColor="@color/white"/>
 
             <EditText
                 android:id="@+id/editTextPhone"
@@ -95,7 +103,8 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="24dp"
                 android:text="Email :"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:textColor="@color/white"/>
 
             <EditText
                 android:id="@+id/editTextEmail"
@@ -127,7 +136,8 @@
                         android:layout_marginLeft="40dp"
                         android:layout_marginTop="20dp"
                         android:text="Ngày Sinh :"
-                        android:textSize="20dp" />
+                        android:textSize="20dp"
+                        android:textColor="@color/white"/>
 
                     <EditText
                         android:id="@+id/editTextDate"
@@ -142,21 +152,26 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="203dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    >
                     <TextView
                         android:id="@+id/textViewGT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Giới tính :"
-                        android:textSize="20dp" />
+                        android:textSize="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"/>
 
                     <Spinner
                         android:id="@+id/spinner3"
                         android:layout_width="97dp"
-                        android:layout_height="38dp" />
+                        android:layout_height="38dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center_horizontal"/>
 
                 </LinearLayout>
 
@@ -175,7 +190,8 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
                 android:text="Khu Vực"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <Spinner
                 android:id="@+id/spinner"
@@ -194,7 +210,8 @@
                 android:layout_marginLeft="48dp"
                 android:layout_marginTop="16dp"
                 android:text="Rạp Yêu Thích"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <Spinner
                 android:id="@+id/spinner2"
@@ -212,7 +229,21 @@
                 android:layout_gravity="center"
                 android:text="Sửa thông tin"
                 android:textSize="20dp"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp"
+                android:background="@color/purple_200"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/btnSaveChange"
+                android:layout_width="314dp"
+                android:layout_height="67dp"
+                android:layout_gravity="center"
+                android:text="Lưu thông tin"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/purple_200"
+                android:textColor="@color/white"
+                android:layout_marginBottom="20dp"/>
         </LinearLayout>
 
     </ScrollView>

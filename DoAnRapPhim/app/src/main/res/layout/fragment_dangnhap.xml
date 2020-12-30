@@ -29,6 +29,7 @@
         android:textSize="20sp"
         android:inputType="textEmailAddress"
         android:hint=" TÀI KHOẢN"
+        android:text="trung@gmail.com"
         android:ems="10"
         android:drawableLeft="@drawable/tk" />
 
@@ -42,6 +43,7 @@
         android:layout_marginTop="15dp"
         android:textSize="20sp"
         android:hint=" MẬT KHẨU"
+        android:text="123456"
         android:inputType="textPassword"
         android:drawableLeft="@drawable/mk" />
 
