@@ -17,28 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-            <!--Tên Đăng Nhập -->
-            <TextView
-                android:id="@+id/textView0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginLeft="36dp"
-                android:layout_marginTop="32dp"
-                android:text="Tên đăng nhập : "
-                android:textSize="20dp" />
-            <EditText
-                android:id="@+id/editTextTenDN"
-                android:layout_width="329dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginLeft="36dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
-                android:textSize="20dp" />
-
-
 
             <!-- Họ tên -->
             <TextView

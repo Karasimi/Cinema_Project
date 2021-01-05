@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.doanrapphim.adapter.ViewPageAdapter;
+import com.example.doanrapphim.dangnhap.DangnhapFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.InputStream;
@@ -33,7 +34,7 @@ public class activity_dangnhap extends AppCompatActivity {
 
         viewPager.setAdapter(viewPageAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.dangnhap , new DangnhapFragment()).commit();
     }
 
 }
