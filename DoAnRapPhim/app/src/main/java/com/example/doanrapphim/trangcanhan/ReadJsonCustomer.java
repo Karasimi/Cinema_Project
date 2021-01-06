@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 
 public class ReadJsonCustomer {
     public static customer readCompanyJSONFile(Context context) throws IOException, JSONException {
-        String jsonText = readText(context, R.raw.InfoCustomer);
+        String jsonText = readText(context, R.raw.info_customer);
 
         JSONObject jsonRoot = new JSONObject(jsonText);
 

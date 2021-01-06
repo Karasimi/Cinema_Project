@@ -1,5 +1,6 @@
 package com.example.doanrapphim.trangcanhan;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,10 @@ import android.widget.EditText;
 
 import com.example.doanrapphim.R;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+
 public class tabthongtin extends Fragment {
 
 
@@ -21,8 +26,15 @@ public class tabthongtin extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tabthongtin2, container, false);
+        txt1 = view.findViewById(R.id.editTextTenDN);
+        txt2 = view.findViewById(R.id.editTextName);
+        txt3 = view.findViewById(R.id.editTextPhone);
+        txt4 = view.findViewById(R.id.editTextEmail);
+        Context context = view.getContext();
 
-        txt1 = view.findViewById(R.id.txtDealTitle);
+        customer Cus = ReadJsonCustomer.readCompanyJSONFile(context);
+
+
         return view;
     }
 }
