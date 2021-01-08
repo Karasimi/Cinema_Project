@@ -1,29 +1,40 @@
 package com.example.doanrapphim.dangnhap;
 
-import android.content.Intent;
-import android.net.Uri;
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.doanrapphim.R;
+import com.example.doanrapphim.ketnoi.Constant;
 
-import static android.app.Activity.RESULT_OK;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class DangkyFragment extends Fragment {
-    private ImageButton anh;
     private EditText edtgmail;
     private EditText edtMK,resetMK;
     private Button btndangky;
-    Uri imageUri;
-    public static final int PICK_IMAGE = 1;
+    private TextView tvM;
+    private ProgressDialog dialog;
+    View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,33 +46,75 @@ public class DangkyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_dangky, container, false);
-        anh = view.findViewById(R.id.dangky_anh);
-        edtgmail = view.findViewById(R.id.dangky_username);
-        edtMK = view.findViewById(R.id.dangnhap_matkhau);
-        resetMK = view.findViewById(R.id.dangky_resetpassword);
-        btndangky = view.findViewById(R.id.dangky);
-
-        anh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent.createChooser(intent,"Select Picture"), PICK_IMAGE);
-
-            }
-        });
-
+        view = inflater.inflate(R.layout.fragment_dangky, container, false);
+        init();
         return view;
     }
+    private void init(){
+        edtgmail = view.findViewById(R.id.dangky_username);
+        edtMK = view.findViewById(R.id.dangky_matkhau);
+        resetMK = view.findViewById(R.id.dangky_rematkhau);
+        btndangky = view.findViewById(R.id.dangky);
+        tvM = view.findViewById(R.id.tvmessage);
+        dialog = new ProgressDialog(getContext());
+        dialog.setCancelable(false);
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode,resultCode,data);
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK ) {
-            imageUri = data.getData();
-            anh.setImageURI(imageUri);
+        btndangky.setOnClickListener(v -> {
+            if (validate()) {
+                dangky();
+            }
+        });
+    }
+
+    private boolean validate() {
+        if(edtgmail.getText().toString().isEmpty()){
+            tvM.setText("Chưa nhập email");
+            return false;
         }
+        if(edtMK.getText().toString().length() <6){
+            tvM.setText("password lớn hơn 5");
+            return false;
+        }
+        if(!resetMK.getText().toString().equals(edtMK.getText().toString())){
+            tvM.setText("Chưa nhập password");
+            return false;
+        }
+        return true;
+    }
+
+    private void dangky() {
+        dialog.setMessage("Đang đăng ký");
+        dialog.show();
+        StringRequest request = new StringRequest(Request.Method.POST , Constant.DANGKY , response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                if(jsonObject.getBoolean("success")){
+                    JSONObject user = jsonObject.getJSONObject("user");
+                    SharedPreferences userPref = getActivity().getApplicationContext().getSharedPreferences("user",getContext().MODE_PRIVATE);
+                    SharedPreferences.Editor editor = userPref.edit();
+                    editor.putString("token", jsonObject.getString("token"));
+                    editor.putString("name", user.getString("name"));
+                    editor.apply();
+                    Toast.makeText(getContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                }
+
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+            dialog.dismiss();
+        },error -> {
+            error.printStackTrace();
+            dialog.dismiss();
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> map = new HashMap<>();
+                map.put("email" , edtgmail.getText().toString().trim());
+                map.put("password",edtMK.getText().toString());
+                return map;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        queue.add(request);
     }
 }
