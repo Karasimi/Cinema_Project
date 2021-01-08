@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAnRapPhim">
         <activity
-            android:name=".activity_dsPhim"
+            android:name=".activity_dangnhap"
             android:parentActivityName=".activity_trangchu" />
         <activity
             android:name=".activity_chiTietPhim"
@@ -22,7 +22,7 @@
         <activity android:name=".activity_trangcanhan" android:parentActivityName=".activity_trangchu"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".activity_trangchu" />
-        <activity android:name=".activity_dangnhap">
+        <activity android:name=".activity_dsPhim">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
