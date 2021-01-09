@@ -1444,6 +1444,7 @@
                 }
             ],
             "time": "2020-12-14T13:15:25+00:00"
+<<<<<<< HEAD
         },
         {
             "name": "namshi/jose",
@@ -1511,6 +1512,8 @@
                 "source": "https://github.com/namshi/jose/tree/master"
             },
             "time": "2016-12-05T07:27:31+00:00"
+=======
+>>>>>>> 5a99264d277d9463e8ae98708e54a3347175ca79
         },
         {
             "name": "nesbot/carbon",
@@ -3753,6 +3756,7 @@
             ],
             "support": {
                 "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.22.0"
+<<<<<<< HEAD
             },
             "funding": [
                 {
@@ -3821,6 +3825,8 @@
             ],
             "support": {
                 "source": "https://github.com/symfony/polyfill-php56/tree/v1.20.0"
+=======
+>>>>>>> 5a99264d277d9463e8ae98708e54a3347175ca79
             },
             "funding": [
                 {
@@ -3836,7 +3842,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-10-23T14:02:19+00:00"
+            "time": "2021-01-07T16:49:33+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
