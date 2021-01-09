@@ -906,9 +906,8 @@ public function postThemP(Request $request)
   $this->validate($request, [
     'tenphim' => 'required|unique:phims,tenphim|min:3|max:50',
     'trailer' => 'required|min:3',
-    'thoiluong' => 'required|min:5',
-    'diem' => 'required'
-
+    'thoiluong' => 'required|min:2',
+  
   ], [
     'tenphim.required' => 'Bạn Chưa Nhập Tên Phim',
     'tenphim.unique' => 'Phim Đã Tồn Tại',
@@ -921,11 +920,15 @@ public function postThemP(Request $request)
     'thoiluong.min' => 'Trailer Có Độ Dài Ít Nhất 5 Kí Tự',
     'diem.min' => 'Trailer Có Độ Dài Ít Nhất 3 Kí Tự',
   ]);
+
   $phim = new phim();
   $phim->tenphim = $request->tenphim;
   $phim->theloai = $request->theloai;
   $phim->daodien = $request->daodien;
   $phim->dienvien = $request->dienvien;
+  $phim->dotuoi = $request->dotuoi;
+  $phim->noidung = $request->noidung;
+
   $phim->quocgia = $request->quocgia;
   $phim->nsx = $request->nsx;
   $phim->thoiluong = $request->thoiluong.' Phút';
