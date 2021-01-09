@@ -58,7 +58,7 @@
           <td>{{$phim->thoiluong}}</td>
 
           <td>
-            <img src="upload/{{$phim->hinhanh}}" width="100" height="100" controls></td>
+            <img src="/upload/{{$phim->hinhanh}}" width="100" height="100" controls></td>
           <td>
             {{$phim->trailer}}
           </td>
