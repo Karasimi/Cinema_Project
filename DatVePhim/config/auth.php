@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -42,9 +42,13 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'jwt',
             'provider' => 'users',
             'hash' => false,
+        ],
+        'nhanvien' => [
+            'driver' => 'session',
+            'provider' => 'nhanviens',
         ],
     ],
 
@@ -75,6 +79,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'nhanviens' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\nhanvien::class,
+        ],
     ],
 
     /*

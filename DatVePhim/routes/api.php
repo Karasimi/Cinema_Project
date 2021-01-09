@@ -26,7 +26,9 @@ Route::group(['prefix'=>'api'],function(){
     Route::get('ngay','APIController@layngay')->name('dsh');;
 
 });  
-
+Route::post('login', 'Api\UserController@login');
+Route::post('dangky', 'Api\UserController@dangky');
+Route::get('dangxuat', 'Api\UserController@dangxuat');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
 	return $request->user();
 });

@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class binhluan extends Model
 {
-    use HasFactory;
+    public function phim(){
+        return $this->belongsTo('App\Models\phim','phim','id');
+    }public function kh(){
+        return $this->belongsTo('App\Models\khachhang','khachhang','id');
+    }
 }

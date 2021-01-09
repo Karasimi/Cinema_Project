@@ -202,13 +202,12 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <img alt="" src="images/2.png">
-                            <span class="username">John Doe</span>
+                            <span class="username">{{Auth::guard('nhanvien')->user()->hoten}}</span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
-                            <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                            <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                            <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+                            <li><a href="{{asset('profile')}}"><i class=" fa fa-suitcase"></i>Hò sơ</a></li>
+                            <li><a href="{{asset('dangxuat')}}"><i class="fa fa-key"></i> Đăng xuất</a></li>
                         </ul>
                     </li>
                     <!-- user login dropdown end -->
@@ -283,7 +282,17 @@
                               <li><a href="{{route('themNSX')}}">Danh Sách NSX</a></li>
                               <li><a href="{{route('themQG')}}">Danh Sách Quốc Gia</a></li>
                           </ul>
-                      </li>      
+                      </li>
+                       <!-- Binh luận -->
+                <li class="sub-menu">
+                    <a href="javascript">
+                        <i class="fa fa-book"></i> 
+                        <span>Bình luận</span>
+                    </a>
+                    <ul class="sub">
+						<li><a href="{{route('dsBL')}}">Danh Sách Bình Luận</a></li>
+                    </ul>
+                </li>      
 </div>
 </aside>
 <!--sidebar end-->
