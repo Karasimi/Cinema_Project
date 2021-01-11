@@ -94,6 +94,10 @@ public class DangkyFragment extends Fragment {
                     SharedPreferences.Editor editor = userPref.edit();
                     editor.putString("token", jsonObject.getString("token"));
                     editor.putString("name", user.getString("name"));
+                   // editor.putString("diachi", user.getString("diachi"));
+                    //editor.putString("sdt", user.getString("sdt"));
+                    //editor.putString("anh", user.getString("anh"));
+                    editor.putBoolean("isLoggedIn", true);
                     editor.apply();
                     Toast.makeText(getContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                 }
