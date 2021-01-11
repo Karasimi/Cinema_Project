@@ -1,25 +1,17 @@
 package com.example.doanrapphim;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.doanrapphim.AsysntaskLoader.AsynTask;
-import com.example.doanrapphim.AsysntaskLoader.KetNoi_GET;
 import com.example.doanrapphim.adapter.MyAdapter;
 import com.example.doanrapphim.adapter.adapterjson;
 import com.example.doanrapphim.lop.Phim;
@@ -31,12 +23,8 @@ import org.json.JSONObject;
 import java.util.LinkedList;
 
 
-public class activity_dsPhim extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
-
-    static final int GET = 1;
-    static final int POST = 2;
-    static final int LOADERID = 111;
-    private LinkedList<Phim> listPhim = new LinkedList<>();
+public class activity_dsPhim extends AppCompatActivity {
+    private final LinkedList<Phim> listPhim = new LinkedList<>();
     String d = "";
     LinearLayout linearLayout;
     RecyclerView recyclerView;
@@ -45,15 +33,12 @@ public class activity_dsPhim extends AppCompatActivity implements LoaderManager.
     private JSONObject jsonRoot = null;
     private JSONArray jsonArray;
     int l;
+    TextView textView;
     MyAdapter myAdapter;
-    LoaderManager loaderManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ds_phim);
-        Bundle bundle = new Bundle();
-        bundle.putInt("phuongThuc",GET);
-        LoaderManager.getInstance(this).initLoader(LOADERID,bundle,this);
         anhxa();
         searchView.clearFocus();
         toolbar = findViewById(R.id.toolbar);
@@ -62,28 +47,28 @@ public class activity_dsPhim extends AppCompatActivity implements LoaderManager.
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         layDsPhim();
-//        myAdapter = new MyAdapter(listPhim, this);
-//        recyclerView.setAdapter(myAdapter);
-//        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                filter(newText);
-//                return false;
-//            }
-//        });
-//        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-//            @Override
-//            public boolean onClose() {
-//                linearLayout.setVisibility(View.INVISIBLE);
-//                return false;
-//            }
-//        });
+        myAdapter = new MyAdapter(listPhim, this);
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                linearLayout.setVisibility(View.INVISIBLE);
+                return false;
+            }
+        });
 
     }
     public void tatca (View view){
@@ -156,51 +141,5 @@ public class activity_dsPhim extends AppCompatActivity implements LoaderManager.
             }
         }
         myAdapter.filterl(filter);
-    }
-
-    @NonNull
-    @Override
-    public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
-      if (args != null &&  args.getInt("phuongThuc") == GET) {
-          String url = "http://192.168.43.83/DatVe/public/api/api/phim";
-          return new AsynTask(this, url, GET, null);
-      }
-      return null;
-
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-        listPhim = dsPhim(data);
-        myAdapter = new MyAdapter(listPhim, getApplicationContext());
-        recyclerView.setAdapter(myAdapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<String> loader) {
-
-    }
-    private LinkedList<Phim> dsPhim(String data){
-        LinkedList<Phim> phims = new LinkedList<>();
-        try {
-            JSONArray jsonArray = new JSONArray(data);
-            l = jsonArray.length();
-            for (int i = 0; i < l; i++) {
-                Phim phim = new Phim();
-                JSONObject jb = jsonArray.getJSONObject(i);
-                phim.setTenphim(jb.getString("tenphim"));
-                phim.setHinhanh(jb.getString("hinhanh"));
-                phim.setTheloai(jb.getString("theloai"));
-                phim.setId(jb.getInt("id"));
-                phim.setTrangthai(jb.getInt("trangthai"));
-                phims.add(i,phim);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return phims;
-
     }
 }
