@@ -240,7 +240,7 @@
                                 <span>Giờ Chiếu</span>
                             </a>
                         </li>
-                        <li class="sub-menu">
+                       <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Phim</span>
@@ -248,15 +248,33 @@
                             <ul class="sub">
                                 <li><a href="{{route('dsP')}}">Danh sách bộ phim</a></li>
                                 <li><a href="{{route('themP')}}">Thêm Phim</a></li>
+                                <li><a href="{{route('dsDG')}}">Đánh Giá</a></li>
+
                             </ul>
                         </li>
-                         <li class="sub-menu">
+                            <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Vé</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{route('dsVe')}}">Danh sách Vé</a></li>
+                                <li><a href="{{route('dsV')}}">Vé</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="{{route('themTL')}}">
+                                <i class="fa fa-book"></i> 
+                                <span>Giá</span>
+                            </a>
+                        </li>
+                        <li class="sub-menu">
                             <a href="{{route('dsR')}}">
                                 <i class="fa fa-book"></i> 
                                 <span>Rạp</span>
                             </a>
                         </li>
-                              <li class="sub-menu">
+                        <li class="sub-menu">
                             <a href="{{route('themG')}}">
                                 <i class="fa fa-book"></i> 
                                 <span>Ghế</span>
