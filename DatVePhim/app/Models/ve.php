@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ve extends Model
 {
+<<<<<<< HEAD
  protected $table = 'ves';
     protected $fillable = ['phim','rap','thoigian','ghe','gia'];
    public function lg(){
@@ -23,5 +24,7 @@ class ve extends Model
 
         return $this->beLongTO('App\Models\dsve','dsve','id'); 
     }
+=======
+>>>>>>> f7cdbaabfc12dd4ef86502c324c8bcacce225e52
     
 }

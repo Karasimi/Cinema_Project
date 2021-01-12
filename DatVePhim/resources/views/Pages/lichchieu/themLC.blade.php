@@ -1,69 +1,64 @@
 @extends('Pages/admin')
 @section('content')
-<div class="alert alert-danger" id="loithem" hidden="true"></div>
-<form  id="xeplicha" enctype="multipart/form-data">
-  @csrf
-  <div method="POST" action="" class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-       <label for="exampleInputPassword1">Từ Ngày</label>
-       <input type="date"  name="ngaybd" required class="form-control" id="ngaybd">
+ <div class="alert alert-danger" id="loithem" hidden="true"></div>
+  <form  id="xeplicha" enctype="multipart/form-data">
+    @csrf
+    <div method="POST" action="" class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+         <label for="exampleInputPassword1">Từ Ngày</label>
+         <input type="date"  name="ngaybd" required class="form-control" id="ngaybd">
+       </div>
      </div>
-   </div>
-   <div class="col-md-6">
-    <div class="form-group">
-      <label for="exampleInputPassword1">Đến Ngày</label>
-      <input type="date" name="ngaykt"  required="" class="form-control" id="ngaykt">
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-8">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        Chọn Phim Xếp Lịch
-      </div>
-      <div style="margin: 10px">
-        <input class="form-control" type="text" placeholder="Tìm Kiếm" id="timphim" aria-label="Search">
-      </div>
-      <div class="table-responsive">
-        <table class="table table-striped b-t b-light">
-          <thead>
-            <tr>
-              <th style="width:20px;">
-                <label class="i-checks m-b-none">
-                  <input type="checkbox"><i></i>
-                </label>
-              </th>
-              <th>Phim</th>
-              <th style="width:50px;"></th>
-            </tr>
-          </thead>
-
-          <tbody id="loadp">
-            @foreach($phim as $key => $p)
-            <tr>
-              <td><input type="checkbox" name="phim[]" value="{{$p->id}}"></td>
-              <td>{{$p->tenphim}}</td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
+     <div class="col-md-6">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Đến Ngày</label>
+        <input type="date" name="ngaykt"  required="" class="form-control" id="ngaykt">
       </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="row">
-      <div class="col-lg-12">
-        <section class="panel">
-          <header class="panel-heading">
-            CHỌN RẠP
-          </header>
-          <div style="margin: 10px">
-            <input class="form-control" type="text" placeholder="Tìm Kiếm" id="timrap" aria-label="Search">
-          </div>
+
+  <div class="row">
+    <div class="col-md-8">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Chọn Phim Xếp Lịch
+        </div>
+        <div class="table-responsive">
           <table class="table table-striped b-t b-light">
+            <thead>
+              <tr>
+                <th style="width:20px;">
+                  <label class="i-checks m-b-none">
+                    <input type="checkbox"><i></i>
+                  </label>
+                </th>
+                <th>Phim</th>
+                <th style="width:50px;"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @foreach($phim as $key => $p)
+              <tr>
+                <td><input type="checkbox" name="phim[]" value="{{$p->id}}"></td>
+                <td>{{$p->tenphim}}</td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-lg-12">
+          <section class="panel">
+            <header class="panel-heading">
+              CHỌN RẠP
+            </header>
+             <table class="table table-striped b-t b-light">
             <thead>
               <tr>
                 <th style="width:20px;">
@@ -75,7 +70,8 @@
                 <th style="width:50px;"></th>
               </tr>
             </thead>
-            <tbody id="loadr">
+
+            <tbody>
               @foreach($rap as $key => $rap)
               <tr>
                 <td><input type="checkbox" name="rap[]" value="{{$rap->id}}"></td>
@@ -84,13 +80,13 @@
               @endforeach
             </tbody>
           </table>
-        </div>
-      </div> 
-      <button type="submit" class="btn btn-primary" id="xeplich">Thêm</button>
+          </div>
+        </div> 
+        <button type="submit" class="btn btn-primary" id="xeplich">Thêm</button>
 
-    </div> 
-  </div>
-</form>
+      </div> 
+    </div>
+  </form>
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -123,76 +119,42 @@
 </div>
 </section>
 <script type="text/javascript">
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+        function load(){
+        $.ajax({
+         type:'GET',
+         url:"{{route('dsLC')}}",
+         success: function(data){
+           $('#loadl').html(data);
+       }
+   })
     }
-  });
-  function load(){
-    $.ajax({
-     type:'GET',
-     url:"{{route('dsLC')}}",
-     success: function(data){
-       $('#loadl').html(data);
-     }
-   });
-  } 
-  load();
-  $("#xeplich").click(function(e){
-    e.preventDefault();
-    $.ajax({
-     type:'POST',
-     url:"{{route('themLC')}}",
-     data:$('#xeplicha').serialize(),
-     success: function(data)
-     {
-      if (data.errors != null) {
-        $('#loithem').show();
-        $('#loithem').text(data.errors);
-
-      }else{
-        load();
-      }
-    },
-    error: function(data)
+    load();
+    $("#xeplich").click(function(e){
+        e.preventDefault();
+        $.ajax({
+           type:'POST',
+           url:"{{route('themLC')}}",
+           data:$('#xeplicha').serialize(),
+             success: function(data)
     {
-      console.log(data);
+            if (data.errors != null) {
+                    $('#loithem').show();
+                    $('#loithem').text(data.errors);
+              
+            }else{
+                        load();
+                      }
+    },
+        error: function(data)
+    {
+        console.log(data);
     }
-  });
-  });
-  $('#timphim').on('keyup',function(){
-    $value = $(this).val();
-    $.ajax({
-      type: 'GET',
-      url: "{{ route('tk') }}",
-      data: {
-        tukhoa: $value
-      },
-      success:function(data){
-        $('#loadp').html('');
-          $.each(data, function(index, value){
-          tableRow = '<tr><td><input type="checkbox" name="phim[]" value='+value.id+'></td><td> '+value.tenphim+'</td> </tr>';
-          $('#loadp').append(tableRow);
         });
-      }
     });
-  })
-  $('#timrap').on('keyup',function(){
-    $value = $(this).val();
-    $.ajax({
-      type: 'GET',
-      url: "{{ route('tkR') }}",
-      data: {
-        tukhoa: $value
-      },
-      success:function(data){
-        $('#loadr').html('');
-          $.each(data, function(index, value){
-          tableRow = '<tr><td><input type="checkbox" name="rap[]" value="'+value.id+'"></td><td>'+value.tenrap+'</td></tr>';
-          $('#loadr').append(tableRow);
-        });
-      }
-    });
-  })
 </script>
 @stop
