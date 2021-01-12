@@ -55,14 +55,6 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Độ tuổi</label>
-                                    <input type="" name="dotuoi" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Nội Dung </label>
-                                    <input type="" name="noidung" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                </div>
-                                <div class="form-group">
                                     <label for="exampleInputPassword1">Thời lượng (Phút)</label>
                                     <input type="number" name="thoiluong" class="form-control" id="exampleInputPassword1" placeholder="Password">
                                 </div>

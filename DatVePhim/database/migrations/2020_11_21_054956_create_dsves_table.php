@@ -15,12 +15,12 @@ class CreateDsvesTable extends Migration
     {
         Schema::create('dsves', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('khachhang')->unsigned();
+            $table->integer('user')->unsigned();
             $table->integer('soluong');
             $table->datetime('ngaymua');
             $table->timestamps();
 
-            $table->foreign('khachhang')->references('id')->on('khachhangs');
+            $table->foreign('user')->references('id')->on('users');
 
 
         });

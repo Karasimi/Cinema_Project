@@ -35,8 +35,4 @@ class phim extends Model
 
         return $this->hasMany('App\Models\lichchieu','phim','id'); 
     }
-        public function dg(){
-
-        return $this->hasMany('App\Models\danhgia','phim','id'); 
-    }
 }

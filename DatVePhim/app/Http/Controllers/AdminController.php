@@ -15,10 +15,11 @@ use App\Models\nsx;
 use App\Models\quocgia;
 use App\Models\ghe;
 use App\Models\rap;
+use App\Models\dsve;
 use App\Models\loaighe;
+Use App\User;
 use Carbon\Carbon;
 use App\Models\binhluan;
-use App\Models\danhgia;
 use Error;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Validated;
@@ -45,85 +46,94 @@ class AdminController extends Controller
     $id = Auth::guard('nhanvien')->user()->id;
     $nv = nhanvien::find($id);
     return view('Pages/nhanvien/profile', array('nv' => $nv));
-  }
+}
   //dang xuat
   public function getdangxuat(){
     Auth::guard('nhanvien')->logout();
     return redirect()->route('dangnhap');
-  }
+}
 
     //dang ky
-  public function dangky(){
-    return view('Pages.dangky.dangky');
+    public function dangky(){
+      return view('Pages.dangky.dangky');
   }
   public function postdangky(Request $req){
-    $this->validate($req,[
-      'hoten'=> 'required',
-      'email'=>'required|email|unique:nhanviens,email',
+      $this->validate($req,[
+          'hoten'=> 'required',
+          'email'=>'required|email|unique:nhanviens,email',
           //'diachi'=>'required',
-      'password'=>'required|min:6|max:20',
-      're_password'=>'same:password',
-      'sdt'=>'required',
+          'password'=>'required|min:6|max:20',
+          're_password'=>'same:password',
+          'sdt'=>'required',
           //'chucvu'=>'required',
 
-    ],[
-      'email.required'=>'Vui lòng nhập lại email',
-      'email.email'=>'Vui lòng nhập lại email',
-      'email.unique'=>'Email đã tồn tại',
-      'password.required'=>'Vui lòng nhập lại mật khẩu',
-      're_password.same'=>'Mật khẩu không giống nhau',
-      'hoten.required'=>'Vui lòng nhập lại họ tên',
+      ],[
+          'email.required'=>'Vui lòng nhập lại email',
+          'email.email'=>'Vui lòng nhập lại email',
+          'email.unique'=>'Email đã tồn tại',
+          'password.required'=>'Vui lòng nhập lại mật khẩu',
+          're_password.same'=>'Mật khẩu không giống nhau',
+          'hoten.required'=>'Vui lòng nhập lại họ tên',
           //'diachi.required'=>'Vui lòng nhập lại địa chỉ',
-      'std.required'=>'Vui lòng nhập lại số diện thoại',
+          'std.required'=>'Vui lòng nhập lại số diện thoại',
           //'chucvu.required'=>'Vui lòng nhập lại chức vụ',
-    ]
+      ]
   );
-    $nv = new nhanvien();
-    $nv->hoten = $req->hoten;
-    $nv->email = $req->email;
-    $nv->password = Hash::make($req->password);
-    $nv->sdt = $req->sdt;
+      $nv = new nhanvien();
+      $nv->hoten = $req->hoten;
+      $nv->email = $req->email;
+      $nv->password = Hash::make($req->password);
+      $nv->sdt = $req->sdt;
       //$nv->diachi = $req->diachi;
       //$nv->chucvu = $req->chucvu;
-    $nv->save();
-    return redirect()->back()->with('thanhcong', 'Tao tài khoản thanh công');
+      $nv->save();
+      return redirect()->back()->with('thanhcong', 'Tao tài khoản thanh công');
   }
 
   //dang nhap
-  public function dangnhap(){
-   return view('Pages.dangnhap.dangnhap');
- }
- public function postdangnhap(Request $req ){
-   $this->validate($req,[
-    'email'=>'required|email',
-    'password'=>'required|min:6|max:20'
-  ],
-  [
-   'email.required'=>'Vui lòng nhập email',
-   'email.email'=>'Email không đúng địng dạng',
-   'password.required'=>'Vui lòng nhập lại mật khẩu',
-   'password.max'=>'Mật khẩu it nhất 6 ký tự',
-   'password.min'=>'Mật khẩu không quá 20 ký tự'
- ]
-);
-   $a = array('email'=>$req->email,'password'=>$req->password);
-   
-   if (Auth::guard('nhanvien')->attempt($a)){
-    return redirect()->route('admin');          
+   public function dangnhap(){
+       return view('Pages.dangnhap.dangnhap');
+   }
+   public function postdangnhap(Request $req ){
+       $this->validate($req,[
+          'email'=>'required|email',
+          'password'=>'required|min:6|max:20'
+       ],
+       [
+           'email.required'=>'Vui lòng nhập email',
+           'email.email'=>'Email không đúng địng dạng',
+           'password.required'=>'Vui lòng nhập lại mật khẩu',
+           'password.max'=>'Mật khẩu it nhất 6 ký tự',
+           'password.min'=>'Mật khẩu không quá 20 ký tự'
+       ]
+      );
+      $a = array('email'=>$req->email,'password'=>$req->password);
+        
+         if (Auth::guard('nhanvien')->attempt($a)){
+          return redirect()->route('admin');          
+         }
+         else{
+          return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng nhập thất bại']);  
+         }
   }
-  else{
-    return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng nhập thất bại']);  
-  }
-}
 //binh luan
 public function danhSachBL(){
   $binhluan = binhluan::where('trangthai',1)->get();
   return view('Pages.binhluan.danhsachBinhLuan',['binhluan' => $binhluan]);
 }
-
+//dang sach vé
+public function danhSachVe(){
+  $dsVe = dsve::all();
+  return view('Pages.Ve.dsVe',['dsve' => $dsVe]);
+}
+//Khách hàng
+public function danhsachKH(){
+  $User = User::all();
+  return view('Pages.khachhang.khachhang',['User' => $User]);
+}
     //the loai
-public function danhSachTL()
-{
+ public function danhSachTL()
+ {
   $dl='';
   $theloai = theloai::all();
   $dl.= '<header class="panel-heading ">
@@ -433,8 +443,6 @@ public function XoaNSX(Request $request)
   $nsx->trangthai = 0;
   $nsx->save();
 }
-
-
 
     //nha san xuat
 public function danhSachDV()
@@ -907,8 +915,9 @@ public function postThemP(Request $request)
   $this->validate($request, [
     'tenphim' => 'required|unique:phims,tenphim|min:3|max:50',
     'trailer' => 'required|min:3',
-    'thoiluong' => 'required|min:2',
-    
+    'thoiluong' => 'required|min:5',
+    'diem' => 'required'
+
   ], [
     'tenphim.required' => 'Bạn Chưa Nhập Tên Phim',
     'tenphim.unique' => 'Phim Đã Tồn Tại',
@@ -921,15 +930,11 @@ public function postThemP(Request $request)
     'thoiluong.min' => 'Trailer Có Độ Dài Ít Nhất 5 Kí Tự',
     'diem.min' => 'Trailer Có Độ Dài Ít Nhất 3 Kí Tự',
   ]);
-
   $phim = new phim();
   $phim->tenphim = $request->tenphim;
   $phim->theloai = $request->theloai;
   $phim->daodien = $request->daodien;
   $phim->dienvien = $request->dienvien;
-  $phim->dotuoi = $request->dotuoi;
-  $phim->noidung = $request->noidung;
-
   $phim->quocgia = $request->quocgia;
   $phim->nsx = $request->nsx;
   $phim->thoiluong = $request->thoiluong.' Phút';
@@ -1023,13 +1028,14 @@ public function ThemLC()
   $khungtgchieu = khungtgchieu::all();
   return view('Pages.lichchieu.themLC',['phim'=>$phim,'rap'=>$rap,'khungtgchieu'=>$khungtgchieu,'lichchieu'=>$lichchieu]);
 }
-    //them lich chieu
+  //them lich chieu
 public function postThemLC(Request $request)
 {
   $now = Carbon::now()->toDateString();
   if ($request->rap == null || $request->phim == null) {
     return Response()->json(['errors'=>'Phải Chọn Phim Và Rạp']);
   }else{
+    $k = 0;
     $phim = $request->phim;
     $r = $request->rap;
     if($request->ngaybd == null && $request->ngaykt != null){
@@ -1047,38 +1053,51 @@ public function postThemLC(Request $request)
         $kt = Carbon::parse($kt)->addDays();
       }
     }
-    $slr=0;
-    foreach ($r as $key => $value) {
-      $slr++;
-    }
+    
     if($dt < $now){
-        return Response()->json(['errors'=>'Không Chọn Ngày Nhỏ Hơn Hiện Tại']);
+      return Response()->json(['errors'=>'Không Chọn Ngày Nhỏ Hơn Hiện Tại']);
     }
     else{
       while($dt < $kt){
-       $khungtgchieu = khungtgchieu::where('trangthai',1)->where('ngaychieu',$dt)->get();
-       $slg = $khungtgchieu->count();
-       $sl  =  $slg * $slr;
-       $solichchieu  =  kiemtra($phim, $r, $khungtgchieu);
-       while ($solichchieu < $sl) {
-         $solichchieu  = $solichchieu +  kiemtra(array_reverse($phim), $r, $khungtgchieu);
-        $solichchieu++;
-       }
-       $dt = Carbon::parse($dt)->addDays();
+        foreach ($r as $rap) {
+          $khungtgchieu = khungtgchieu::where('ngaychieu',$dt)->get();
+          foreach ($khungtgchieu as $thoigian) {
+            if (lichchieu::where('thoigian','=',$thoigian)->count() == 0) {
+              foreach ($phim as $p) {
+                foreach ($khungtgchieu as $value) {
+                  if ($k < 1) {
+                    if (kiemTra($p, $value->id, $rap, $dt)){
+                      $lichchieu = new lichchieu();
+                      $lichchieu->phim = $p;
+                      $lichchieu->rap = $rap;
+                      $lichchieu->thoigian = $value->id;
+                      $lichchieu->save();
+                      $k = $k + 2;
+
+                    }
+                  }    
+                }
+                $k = 0;
+
+              }
+            }
+          }
+        }
+        $dt = Carbon::parse($dt)->addDays();
       }
 
     }
   }
 }
 
-  public function ac(Request $request)
-  {
-   $a = $request->all();
+public function ac(Request $request)
+{
+ $a = $request->all();
 
- }
+}
     //sua lich chieu
- public function SuaLC($id)
- {
+public function SuaLC($id)
+{
   $lichchieu = lichchieu::find($id);
   $phim = phim::all();
   $rap = rap::all();
@@ -1104,7 +1123,8 @@ public function XoaLC($id)
      //gio chieu
 public function danhSachGC()
 {
-  return view('Pages.khungtgchieu.danhSachGC');  
+  $khungtgchieu = khungtgchieu::all();
+  return view('Pages.khungtgchieu.danhSachGC',['khungtgchieu'=>$khungtgchieu]);  
 }
 public function ThemGC()
 {
@@ -1112,9 +1132,9 @@ public function ThemGC()
  $dl='';
  $khungtgchieu = khungtgchieu::all();
  $dl.= '<header class="panel-heading ">
- KHUNG THỜI GIAN
+ KHUNG THÒI GIAN
  </header>
- <table class="table" id="dsgc">
+ <table class="table" id="dsrap">
  <thead class="thead-dark">
  <tr>
  <th>Thời Gian</th>
@@ -1148,6 +1168,7 @@ $dl.= ' </tbody>
 </table>';
 echo $dl;
 }
+    //them the loai
 public function postThemGC(Request $request)
 {
   $validator = Validator::make($request->all(),
@@ -1159,9 +1180,9 @@ public function postThemGC(Request $request)
    return Response()->json(['errors'=>$errors]);
  } else{
   $khungtgchieu = new khungtgchieu;
-  $khungtgchieu->giochieu = $request->thoigian;
-  $khungtgchieu->ngaychieu = $request->ngay;
-  $khungtgchieu->save();
+  $khungtgchieu->giochieu = $request->gio;
+  $khungtgchieu->ngaychieu = $request->ngaychieu;
+  $rap->save();
 }
 
 }
@@ -1169,22 +1190,25 @@ public function postThemGC(Request $request)
 public function SuaGC(Request $request)
 {
   $id = $request->id;
-  $khungtgchieu = khungtgchieu::find($id);
-  return response()->json($khungtgchieu);
+  $rap = rap::find($id);
+  return response()->json($rap);
 }
 public function postSuaGC(Request $request)
 {
-  if ($request->ngaychieu == null || $request->thoigian == null){
-   $errors = "Cần Nhập Đủ Thông Tin";
+  $validator = Validator::make($request->all(),
+    ['ngay' => 'required'],[
+      'ngay.required'=>'Chưa Chọn Ngày Chiếu',
+    ]);
+  if ($validator->fails()){
+   $errors = $validator->errors()->all();
    return Response()->json(['errors'=>$errors]);
  } else
  {
   $id = $request->id;
   $khungtgchieu = khungtgchieu::find($id);
-  $khungtgchieu->giochieu = $request->thoigian;
+  $khungtgchieu->giochieu = $request->gio;
   $khungtgchieu->ngaychieu = $request->ngaychieu;
-  $khungtgchieu->trangthai = $request->trangthai;
-  $khungtgchieu->save();
+  $rap->save();
 }
 }
 
@@ -1265,30 +1289,6 @@ public function XoaG(Request $request)
   $ghe->trangthai=0;
   $ghe->save();
 }
-public function TimKiem()
-{
-  $tukhoa = $_GET['tukhoa'];
-  if ($tukhoa == null) {
-    $tukhoa = "";
-  }
 
-  $phim = phim::where('tenphim', 'LIKE', '%' . $tukhoa . '%')->get();
-  return $phim; 
-}
-public function TimKiemR()
-{
-  $tukhoa = $_GET['tukhoa'];
-  if ($tukhoa == null) {
-    $tukhoa = "";
-  }
-  $rap = rap::where('tenrap', 'LIKE', '%' . $tukhoa . '%')->get();
-  return $rap; 
-}
-
-//danh gia phim 
-public function dsDG(){
-  $danhgia = danhgia::paginate(10);
-   return view('Pages.danhgia.dsdanhgia',['danhgia'=>$danhgia]);
-}
 
 }
