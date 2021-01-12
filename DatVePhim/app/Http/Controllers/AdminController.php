@@ -1061,7 +1061,7 @@ public function postThemLC(Request $request)
        $sl  =  $slg * $slr;
        $solichchieu  =  kiemtra($phim, $r, $khungtgchieu);
        while ($solichchieu < $sl) {
-         $solichchieu  = $solichchieu +  kiemtra(array_reverse($phim), $r, $khungtgchieu);
+         $solichchieu  = $solichchieu +  kiemtra($phim, $r, $khungtgchieu);
         $solichchieu++;
        }
        $dt = Carbon::parse($dt)->addDays();

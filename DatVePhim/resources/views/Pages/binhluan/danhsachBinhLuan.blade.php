@@ -32,7 +32,6 @@
           <td><span class="text-ellipsis">{{$binhluan->phim->tenphim}}</span></td>
           <td><span class="text-ellipsis">{{$binhluan->noidung}}</span></td>
           <td><span class="text-ellipsis">{{$phim->kh->hoten}}</span></td>
-          <td>{{$phim->diem}}</td>
         </tr>
       </tbody>
       @endforeach

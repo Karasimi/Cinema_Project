@@ -20,7 +20,7 @@ class CreateDsvesTable extends Migration
             $table->datetime('ngaymua');
             $table->timestamps();
 
-            $table->foreign('khachhang')->references('id')->on('khachhangs');
+            $table->foreign('khachhang')->references('id')->on('users');
 
 
         });

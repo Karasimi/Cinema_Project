@@ -15,5 +15,13 @@ class ve extends Model
        public function r(){
         return $this->belongsTo('App\Models\rap','rap','id');
     }
+    public function p(){
+
+        return $this->beLongTO('App\Models\phim','phim','id'); 
+    }
+     public function dsve(){
+
+        return $this->beLongTO('App\Models\dsve','dsve','id'); 
+    }
     
 }

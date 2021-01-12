@@ -7,6 +7,8 @@ use App\Models\phim;
 use App\Models\rap;
 use App\Models\lich;
 use App\Models\ghe;
+use App\Models\dsve;
+use App\Models\gia;
 use App\Models\ve;
 use App\Models\theloai;
 use App\Models\lichchieu;
@@ -127,17 +129,66 @@ class APIController extends Controller
       return response()->json($ghe, Response::HTTP_OK);
     }
     public function datve(Request $request){
-       $a = $request->ghe;
-       $ghedat = json_decode($a);
-       foreach ($ghedat as $key => $value) {
+      $phim = $request->phim;
+      $thoigian = $request->thoigian;
+      $rap = $request->rap;
+      $ghedat = json_decode($request->ghe);
+      $i = count($ghedat);
+      $ds = new dsve;
+      $ds->khachhang = 1;
+      $ds->soluong = $i;
+      $ds->ngaymua = Carbon::now();
+      $ds->save();
+      $dsve = dsve::all()->last();
+      foreach ($ghedat as $key => $value) {
+        $kt = ve::where('phim',$phim)->where('ghe',$value->id)->where('rap',$rap)->where('thoigian', $thoigian)->count();
+        if ($kt == 0) {
+          $ve =  new ve;
+          $ve->phim = $phim;
+          $ve->rap =$rap;
+          $ve->thoigian = $thoigian;
+          $ve->ghe = $value->id;
+          $ve->dsve = $dsve->id;
+     $gia = gia::where('phim',$phim)->where('loaighe',$value->loai)->first('id');
+          $ve->gia = 1;
+          $ve->save();
+        }else {
 
-       }
-      return $a;
- }
-   public function hihi(){
-        $rap = rap::all();
-        $rap = $rap->reverse()->values();
-        $a = $rap->reverse()->values();
-        return [$rap,$a];
- }
-}
+        }
+        $v = ve::where('dsve',$dsve->id)->get();
+      }
+      return Response()->json($v);
+    }
+    public function hihi(){
+      $phim = 1;
+      $thoigian = 3;
+      $rap = 2;
+      $ghedat = ghe::where('rap',2)->limit(3)->get();
+      $i = count($ghedat);
+      $ds = new dsve;
+      $ds->khachhang = 1;
+      $ds->soluong = $i;
+      $ds->ngaymua = Carbon::now();
+      $ds->save();
+      $dsve = dsve::all()->last();
+      foreach ($ghedat as $key => $value) {
+        $kt = ve::where('phim',$phim)->where('ghe',$value->id)->where('rap',$rap)->where('thoigian', $thoigian)->count();
+        if ($kt == 0) {
+          $ve =  new ve;
+          $ve->phim = $phim;
+          $ve->rap =$rap;
+          $ve->thoigian = $thoigian;
+          $ve->ghe = $value->id;
+          $ve->dsve = $dsve->id;
+          $gia = gia::where('phim',$phim)->where('loaighe',$value->loaighe)->first('id');
+          $ve->gia = $gia->id;
+          $ve->save();
+        }else {
+
+        }
+      }
+      $ve= ve::where('dsve',$dsve->id)->get(); 
+      return Response()->json($ve);
+
+    }
+  }

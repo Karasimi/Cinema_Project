@@ -13,7 +13,7 @@
       <thead>
         <tr>
           <th style="width:20px;">
-           
+
           </th>
           <th>Khách Hàng</th>
           <th>Phim</th>
@@ -23,19 +23,24 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($danhgia as $key => $danhgia)
+        @foreach($danhgia as $key => $dg)
         <tr>
           <td><label class="i-checks m-b-none"></td>
-          <td>{{$danhgia->kh->name}}</td>
-          <td><span class="text-ellipsis">{{$danhgia->p->tenphim}}</span></td>
-          <td><span class="text-ellipsis">{{$danhgia->diem}}</span></td>
-          <td><span class="text-ellipsis">{{$danhgia->trangthai}}</span></td>
-        </tr>
-      </tbody>
-      @endforeach
-    </table>
+            <td>{{$dg->kh->name}}</td>
+            <td><span class="text-ellipsis">{{$dg->p->tenphim}}</span></td>
+            <td><span class="text-ellipsis">{{$dg->diem}}</span></td>
+            @if($dg->trangthai == 1)
+            <td><span class="text-ellipsis text-success">Tồn Tại</span></td>
+            @else
+            <td><span class="text-ellipsis text-danger">Đã Xóa</span></td>
+            @endif
+          </tr>
+        </tbody>
+        @endforeach
+      </table>
+      {{ $danhgia->links() }}
+    </div>
   </div>
-</div>
 </div>
 </section>
 @stop

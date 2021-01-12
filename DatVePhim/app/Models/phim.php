@@ -39,4 +39,8 @@ class phim extends Model
 
         return $this->hasMany('App\Models\danhgia','phim','id'); 
     }
+       public function ve(){
+
+        return $this->hasMany('App\Models\ve','phim','id'); 
+    }
 }
