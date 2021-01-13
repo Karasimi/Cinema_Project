@@ -900,18 +900,10 @@ public function SuaP($id)
 public function postSuaP(Request $request, $id)
 {
   $phim = phim::find($id);
-  $this->validate($request, [
-    'tenphim' => 'required|unique:theloais'
-  ], [
-    'tenphim.required' => 'Bạn Chưa Nhập Tên Thê Loại',
-    'tenphim.unique' => 'Thể Loại Đã Tồn Tại',
-    'tenphim.min' => 'Tên Thể Loại Có Độ Dài Từ 3 Đến 50 Kí Tự',
-    'tenphim.max' => 'Tên Thể Loại Có Độ Dài Từ 3 Đến 50 Kí Tự',
-  ]);
 
   $phim->tenphim = $request->tenphim;
   $phim->theloai = $request->theloai;
-  $phim->daodien = $request->daodien; 
+  $phim->daodien = $request->daodien;
   $phim->dienvien = $request->dienvien;
   $phim->dotuoi = $request->dotuoi;
   $phim->noidung = $request->noidung;
@@ -921,30 +913,25 @@ public function postSuaP(Request $request, $id)
   $phim->nsx = $request->nsx;
   $phim->thoiluong = $request->thoiluong;
   $phim->trailer = $request->trailer;
-  $phim->hinhanh = $request->hinhanh;
-  if($request->hasFile('hinhanh')){
+
+   if( $request->hasFile('hinhanh')){
     $file = $request->file('hinhanh');
     $name = $file->getClientOriginalName();
     $hinhanh = Str::random(5)."".$name; 
     $file->move("upload/",$hinhanh);
     $phim->hinhanh= $hinhanh;
-
-  }else{
-    $phim->hinhanh =$phim->hinhanh;
-  }
-  $phim->where('id',$id)->update();
+    }
+  $phim->save();
   return redirect()->back()->with('thongbao', 'Thêm Phim Thành Công');
 }
     //xoa phim
 public function XoaP($id)
 {
-  $phim = phim::find($id);
-        //$theloai->delete();s
+  $phim = phim::where('id',$id);
   $phim->trangthai = 0;
   $phim->save();
-  return redirect()->route('ds')->with('thongbao', 'Đã Xóa Thể Loại Thành Công');
+  return redirect()-back()->with('thongbao', 'Đã Xóa Thể Loại Thành Công');
 }
-
 
  //lich chieu
 public function danhSachLC()
