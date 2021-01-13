@@ -27,6 +27,7 @@ class CreatePhimsTable extends Migration
             $table->integer('theloai')->unsigned();
             $table->integer('nsx')->unsigned();
             $table->integer('quocgia')->unsigned();
+            $table->date('ngay');
             $table->timestamps();
 
             $table->foreign('daodien')->references('id')->on('daodiens');

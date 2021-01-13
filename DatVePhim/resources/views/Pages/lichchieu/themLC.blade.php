@@ -42,7 +42,7 @@
             <tbody>
               @foreach($phim as $key => $p)
               <tr>
-                <td><input type="checkbox" name="phim[]" value="{{$p->id}}"></td>
+                <td><input type="checkbox" name="phim" value="{{$p->id}}"></td>
                 <td>{{$p->tenphim}}</td>
               </tr>
               @endforeach
@@ -74,7 +74,7 @@
             <tbody>
               @foreach($rap as $key => $rap)
               <tr>
-                <td><input type="checkbox" name="rap[]" value="{{$rap->id}}"></td>
+                <td><input type="checkbox" name="rap" value="{{$rap->id}}"></td>
                 <td>{{$rap->tenrap}}</td>
               </tr>
               @endforeach

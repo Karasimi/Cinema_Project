@@ -95,7 +95,7 @@
                 </div>
                 <div class="form-group">
                      <label for="exampleInputPassword1">Ngày</label>
-                     <input type="date"  name="ngaybd" required class="form-control" id="ngay">
+                     <input type="date"  name="ngay" value="26/1/2020" required class="form-control" id="ngay">
                </div>
                <button type="submit" class="btn btn-info" id="themGC">Thêm</button>
              </form>

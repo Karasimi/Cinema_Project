@@ -1,5 +1,6 @@
 @extends('Pages/admin')
 @section('content')
+<a class="btn bg-olive text-primary bg-primary" style="margin-bottom: 20px;" href="{{route('dsP')}}"></i> Danh Sách Phim</a>
 <div class="row">
             <div class="col-lg-12">
                     <section class="panel">
@@ -69,6 +70,11 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Trailer</label>
                                     <input type="" name="trailer" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Ngày</label>
+                                    <input type="date" name="ngay" class="form-control" id="exampleInputPassword1" placeholder="Password">
                                 </div>
                               
                                 <div class="form-group">

@@ -35,7 +35,7 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('them','AdminController@ThemP')->name('themP');
         Route::post('them','AdminController@postThemP')->name('themP');
 
-        Route::get('sua','AdminController@SuaP')->name('suaP');
+        Route::get('sua/{id}','AdminController@SuaP')->name('suaPP');
         Route::post('sua/{id}','AdminController@postSuaP')->name('suaP');
 
         Route::get('xoa/{id}','AdminController@XoaDD')->name('xoaP');

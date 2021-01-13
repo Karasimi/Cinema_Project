@@ -17,6 +17,7 @@ use App\Models\rap;
 use App\Models\loaighe;
 use Carbon\Carbon;
 use Error;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Auth;
@@ -822,7 +823,8 @@ public function XoaR(Request $request)
          // phim
 public function danhSachP()
 {
-  $phim = phim::where('trangthai',1)->get();
+  $ngay=Carbon::now();
+  $phim = phim::where('trangthai',1)->where('ngay','>',$ngay)->get();
   return view('Pages.phim.danhsachP', ['phim' => $phim]);
 }
 public function ThemP()
@@ -841,6 +843,7 @@ public function postThemP(Request $request)
     'tenphim' => 'required|unique:phims,tenphim|min:3|max:50',
     'trailer' => 'required|min:3',
     'thoiluong' => 'required|min:2',
+    'ngay' => 'required',
   
   ], [
     'tenphim.required' => 'Bạn Chưa Nhập Tên Phim',
@@ -862,10 +865,11 @@ public function postThemP(Request $request)
   $phim->dienvien = $request->dienvien;
   $phim->dotuoi = $request->dotuoi;
   $phim->noidung = $request->noidung;
+  $phim->ngay = $request->ngay;
 
   $phim->quocgia = $request->quocgia;
   $phim->nsx = $request->nsx;
-  $phim->thoiluong = $request->thoiluong.' Phút';
+  $phim->thoiluong = $request->thoiluong;
   $phim->trailer = $request->trailer;
   if($request->hasFile('hinhanh')){
     $file = $request->file('hinhanh');
@@ -883,29 +887,59 @@ public function postThemP(Request $request)
     //sua phim
 public function SuaP($id)
 {
-  $phim = phim::find($id);
-  return view('Pages.phim.suaP', ['phim' => $phim]);
+  $phim=DB::table('phims')->where('id',$id)->first();
+
+  $daodien= daodien::all();
+  $dienvien= dienvien::all();
+  $theloai= theloai::all();
+  $quocgia= quocgia::all();
+  $nsx= nsx::all();
+  return view('Pages.phim.suaP', ['dienvien'=>$dienvien,'theloai'=>$theloai,
+  'quocgia'=>$quocgia,'nsx'=>$nsx,'phim'=>$phim,'daodien'=>$daodien]);
 }
 public function postSuaP(Request $request, $id)
 {
   $phim = phim::find($id);
   $this->validate($request, [
-    'tenphim' => 'required|unique:theloais,tentheloai|min:3|max:50'
+    'tenphim' => 'required|unique:theloais'
   ], [
     'tenphim.required' => 'Bạn Chưa Nhập Tên Thê Loại',
     'tenphim.unique' => 'Thể Loại Đã Tồn Tại',
     'tenphim.min' => 'Tên Thể Loại Có Độ Dài Từ 3 Đến 50 Kí Tự',
     'tenphim.max' => 'Tên Thể Loại Có Độ Dài Từ 3 Đến 50 Kí Tự',
   ]);
+
   $phim->tenphim = $request->tenphim;
-  $phim->save();
-  return redirect()->route('themTL')->with('thongbao', 'Đã Sửa Thể Loại Thành Công');
+  $phim->theloai = $request->theloai;
+  $phim->daodien = $request->daodien; 
+  $phim->dienvien = $request->dienvien;
+  $phim->dotuoi = $request->dotuoi;
+  $phim->noidung = $request->noidung;
+  $phim->ngay = $request->ngay;
+
+  $phim->quocgia = $request->quocgia;
+  $phim->nsx = $request->nsx;
+  $phim->thoiluong = $request->thoiluong;
+  $phim->trailer = $request->trailer;
+  $phim->hinhanh = $request->hinhanh;
+  if($request->hasFile('hinhanh')){
+    $file = $request->file('hinhanh');
+    $name = $file->getClientOriginalName();
+    $hinhanh = Str::random(5)."".$name; 
+    $file->move("upload/",$hinhanh);
+    $phim->hinhanh= $hinhanh;
+
+  }else{
+    $phim->hinhanh =$phim->hinhanh;
+  }
+  $phim->where('id',$id)->update();
+  return redirect()->back()->with('thongbao', 'Thêm Phim Thành Công');
 }
     //xoa phim
 public function XoaP($id)
 {
   $phim = phim::find($id);
-        //$theloai->delete();
+        //$theloai->delete();s
   $phim->trangthai = 0;
   $phim->save();
   return redirect()->route('ds')->with('thongbao', 'Đã Xóa Thể Loại Thành Công');
@@ -957,8 +991,8 @@ public function ThemLC()
   return view('Pages.lichchieu.themLC',['phim'=>$phim,'rap'=>$rap,'khungtgchieu'=>$khungtgchieu,'lichchieu'=>$lichchieu]);
 }
     //them lich chieu
-public function postThemLC(Request $request)
-{
+public function postThemLC(Request $request){
+  $lc=khungtgchieu::all();
   $now = Carbon::now()->toDateString();
   if ($request->rap == null || $request->phim == null) {
     return Response()->json(['errors'=>'Phải Chọn Phim Và Rạp']);
@@ -981,7 +1015,7 @@ public function postThemLC(Request $request)
         $kt = Carbon::parse($kt)->addDays();
       }
     }
-    
+
     if($dt < $now){
       return Response()->json(['errors'=>'Không Chọn Ngày Nhỏ Hơn Hiện Tại']);
     }
@@ -1001,19 +1035,16 @@ public function postThemLC(Request $request)
                       $lichchieu->thoigian = $value->id;
                       $lichchieu->save();
                       $k = $k + 2;
-
                     }
                   }    
                 }
                 $k = 0;
-
               }
             }
           }
         }
         $dt = Carbon::parse($dt)->addDays();
       }
-
     }
   }
 }
@@ -1097,22 +1128,11 @@ $dl.= ' </tbody>
 echo $dl;
 }
     //them the loai
-public function postThemGC(Request $request)
-{
-  $validator = Validator::make($request->all(),
-    ['ngay' => 'required'] ,[
-      'ngay.required'=>'Chưa Chọn Ngày Chiếu',
-    ]);
-  if ($validator->fails()){
-   $errors = $validator->errors()->all();
-   return Response()->json(['errors'=>$errors]);
- } else{
-  $khungtgchieu = new khungtgchieu;
+public function postThemGC(Request $request){
+  $khungtgchieu = new khungtgchieu();
   $khungtgchieu->giochieu = $request->gio;
-  $khungtgchieu->ngaychieu = $request->ngaychieu;
+  $khungtgchieu->ngaychieu = $request->ngay;
   $rap->save();
-}
-
 }
     //sua the loai
 public function SuaGC(Request $request)

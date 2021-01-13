@@ -44,7 +44,8 @@
           <th>NSX</th>
           <th>Đạo Diễn</th>
           <th>Diễn Viên</th>
-          <th>Điểm</th>
+
+          <th>ngay</th>
           <th style="width:30px;"></th>
         </tr>
       </thead>
@@ -55,7 +56,7 @@
           <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
           <td>{{$phim->tenphim}}</td>
           <td><span class="text-ellipsis">{{$phim->tl->tentheloai}}</span></td>
-          <td>{{$phim->thoiluong}}</td>
+          <td>{{$phim->thoiluong}} phút</td>
 
           <td>
             <img src="/upload/{{$phim->hinhanh}}" width="100" height="100" controls></td>
@@ -66,9 +67,10 @@
           <td><span class="text-ellipsis">{{$phim->nsxs->tennsx}}</span></td>
           <td><span class="text-ellipsis">{{$phim->dd->tendaodien}}</span></td>
           <td><span class="text-ellipsis">{{$phim->dv->tendienvien}}</span></td>
-          <td>{{$phim->diem}}</td>
+
+          <td>{{$phim->ngay}}</td>
         <td>
-        <a href="{{route('suaP', $phim->id)}}" class="active" ui-toggle-class="">
+        <a href="{{route('suaPP', $phim->id)}}" class="active" ui-toggle-class="">
                 <i class="fa fa-edit text-success text-active">Sửa</i>
                 </a>
                 <a href="{{route('xoaP', $phim->id)}}" class="active" ui-toggle-class="">
