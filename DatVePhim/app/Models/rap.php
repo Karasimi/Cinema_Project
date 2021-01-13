@@ -23,5 +23,9 @@ class rap extends Model
 
         return $this->hasMany('App\Models\ghe','rap','id'); 
     }
+       public function rap(){
+
+        return $this->hasMany('App\Models\rap','rap','id'); 
+    }
 }
 

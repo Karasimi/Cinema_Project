@@ -17,7 +17,7 @@ class CreateNhanviensTable extends Migration
             $table->increments('id');
             $table->string('hoten');
             $table->string('email')->unique();
-            $table->string('matkhau');
+            $table->string('password');
             $table->string('sdt')->unique();
             $table->boolean('trangthai')->default(1);
             $table->timestamps();

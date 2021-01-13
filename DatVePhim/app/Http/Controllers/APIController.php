@@ -7,6 +7,12 @@ use App\Models\phim;
 use App\Models\rap;
 use App\Models\lich;
 use App\Models\ghe;
+<<<<<<< HEAD
+use App\Models\dsve;
+use App\Models\gia;
+use App\Models\ve;
+=======
+>>>>>>> f7cdbaabfc12dd4ef86502c324c8bcacce225e52
 use App\Models\theloai;
 use App\Models\lichchieu;
 use App\Models\khungtgchieu;
@@ -118,6 +124,79 @@ public function postgiochieu(Request $request)
 }
 return response()->json($r, Response::HTTP_OK);
 
+<<<<<<< HEAD
+    }
+    public function ghe(Request $request)
+    {
+      $id = $request->rap;
+      $ghe = ghe::where('rap',$id)->get();
+      return response()->json($ghe, Response::HTTP_OK);
+    }
+    public function datve(Request $request){
+      $phim = $request->phim;
+      $thoigian = $request->thoigian;
+      $rap = $request->rap;
+      $ghedat = json_decode($request->ghe);
+      $i = count($ghedat);
+      $ds = new dsve;
+      $ds->khachhang = 1;
+      $ds->soluong = $i;
+      $ds->ngaymua = Carbon::now();
+      $ds->save();
+      $dsve = dsve::all()->last();
+      foreach ($ghedat as $key => $value) {
+        $kt = ve::where('phim',$phim)->where('ghe',$value->id)->where('rap',$rap)->where('thoigian', $thoigian)->count();
+        if ($kt == 0) {
+          $ve =  new ve;
+          $ve->phim = $phim;
+          $ve->rap =$rap;
+          $ve->thoigian = $thoigian;
+          $ve->ghe = $value->id;
+          $ve->dsve = $dsve->id;
+     $gia = gia::where('phim',$phim)->where('loaighe',$value->loai)->first('id');
+          $ve->gia = 1;
+          $ve->save();
+        }else {
+
+        }
+        $v = ve::where('dsve',$dsve->id)->get();
+      }
+      return Response()->json($v);
+    }
+    public function hihi(){
+      $phim = 1;
+      $thoigian = 3;
+      $rap = 2;
+      $ghedat = ghe::where('rap',2)->limit(3)->get();
+      $i = count($ghedat);
+      $ds = new dsve;
+      $ds->khachhang = 1;
+      $ds->soluong = $i;
+      $ds->ngaymua = Carbon::now();
+      $ds->save();
+      $dsve = dsve::all()->last();
+      foreach ($ghedat as $key => $value) {
+        $kt = ve::where('phim',$phim)->where('ghe',$value->id)->where('rap',$rap)->where('thoigian', $thoigian)->count();
+        if ($kt == 0) {
+          $ve =  new ve;
+          $ve->phim = $phim;
+          $ve->rap =$rap;
+          $ve->thoigian = $thoigian;
+          $ve->ghe = $value->id;
+          $ve->dsve = $dsve->id;
+          $gia = gia::where('phim',$phim)->where('loaighe',$value->loaighe)->first('id');
+          $ve->gia = $gia->id;
+          $ve->save();
+        }else {
+
+        }
+      }
+      $ve= ve::where('dsve',$dsve->id)->get(); 
+      return Response()->json($ve);
+
+    }
+  }
+=======
 }
 public function ghe(Request $request)
 {
@@ -127,3 +206,4 @@ public function ghe(Request $request)
 }
 
 }
+>>>>>>> f7cdbaabfc12dd4ef86502c324c8bcacce225e52

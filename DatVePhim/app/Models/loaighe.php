@@ -13,4 +13,8 @@ class loaighe extends Model
 
         return $this->hasMany('App\Models\ghe','loaighe','id'); 
     }
+     public function gia(){
+
+        return $this->beLongTO('App\Models\gia','loaighe','id'); 
+    }
 }

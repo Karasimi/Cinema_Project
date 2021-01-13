@@ -7,17 +7,27 @@ Route::get('/a', function () {
     return view('welcome');
 });
 Route::get('/aac','AdminController@ac')->name('aac');
+Route::get('dangxuat','AdminController@getdangxuat');
+Route::get('profile','AdminController@profile');
 
-Route::group(['prefix'=>'dangnhap'],function(){
+
+
+Route::group(['prefix'=>'dangnhap','middleware'=>'checkAdmin'],function(){
     Route::get('/','AdminController@dangnhap')->name('dangnhap');
     Route::post('/','AdminController@postdangnhap')->name('dangnhap');
-   
-    });
-Route::group(['prefix'=>'admin'],function(){
+  });
+  Route::group(['prefix'=>'dangky'],function(){
+    Route::get('/','AdminController@dangky')->name('dangky');
+    Route::post('/','AdminController@postdangky')->name('dangky');
+});
+Route::group(['prefix'=>'admin','middleware'=>'CheckLogout'],function(){
     Route::get('/','AdminController@index')->name('admin');
+
+    Route::get('khachhang','AdminController@danhsachKH')->name('dsKH');
+    
     Route::group(['prefix'=>'theloai'],function(){
         Route::get('danhsach','AdminController@danhSachTL')->name('dsTL');;
-
+     
         //them the loại
         Route::get('them','AdminController@ThemTL')->name('themTL');
         Route::post('them','AdminController@postThemTL')->name('themTL');
@@ -42,6 +52,15 @@ Route::group(['prefix'=>'admin'],function(){
 
 
     });
+    //binh luan
+    Route::group(['prefix'=>'binhluan'],function(){
+        Route::get('danhsachBL','AdminController@danhSachBL')->name('dsBL');
+    });
+    //DS Ve
+    Route::group(['prefix'=>'dsve'],function(){
+        Route::get('danhsachBL','AdminController@danhSachVe')->name('dsVE');
+    });
+    //ghe
     Route::group(['prefix'=>'ghe'],function(){
         Route::get('danhsach','AdminController@danhSachG')->name('dsG');
         Route::get('them','AdminController@ThemG')->name('themG');

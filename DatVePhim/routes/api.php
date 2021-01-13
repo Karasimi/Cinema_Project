@@ -24,9 +24,12 @@ Route::group(['prefix'=>'api'],function(){
 	Route::get('dslich','APIController@dslich')->name('dslich');;
 	Route::post('ghe','APIController@ghe')->name('dsg');;
     Route::get('ngay','APIController@layngay')->name('dsh');;
-
+    
 });  
-
+Route::post('login', 'Api\UserController@login');
+Route::post('dangky', 'Api\UserController@dangky');
+Route::get('dangxuat', 'Api\UserController@dangxuat');
+Route::post('save_user_info','Api\UserController@saveUser');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
 	return $request->user();
 });
