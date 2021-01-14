@@ -8,14 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EdgeEffect;
 import android.widget.EditText;
 
 import com.example.doanrapphim.R;
-
-import org.json.JSONException;
-
-import java.io.IOException;
 
 public class tabthongtin extends Fragment {
 
@@ -25,14 +20,14 @@ public class tabthongtin extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tabthongtin2, container, false);
+        View view = inflater.inflate(R.layout.fragment_tabthongtincanhan, container, false);
         txt1 = view.findViewById(R.id.editTextTenDN);
         txt2 = view.findViewById(R.id.editTextName);
         txt3 = view.findViewById(R.id.editTextPhone);
         txt4 = view.findViewById(R.id.editTextEmail);
         Context context = view.getContext();
 
-        customer Cus = ReadJsonCustomer.readCompanyJSONFile(context);
+
 
 
         return view;
