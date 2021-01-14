@@ -69,19 +69,7 @@ class UserController extends Controller
     {
         $user = User::find(Auth::user()->id);
         $user->name = $req->name;
-        $user->diachi = $req->diachi;
-        $user->sdt = $req->sdt;
-        $anh ='';
-        if($req->anh != '')
-        {
-            $photo = time().'.jpg';
-            file_put_contents('storage/profiles/'.$photo, base64_decode($req->photo));
-            $user->anh = $anh;
-        }
-        $user->update();
-        return response()->json([
-            'success'-> true,
-            'photo' =>$photo
-        ]);
+        $photo = time().'.jpg';
+        file_put_contents('storage/pprofiles/'.$photo, base64_decode($req->photo));
     }
 }

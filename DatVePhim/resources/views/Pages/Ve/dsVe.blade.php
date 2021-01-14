@@ -29,7 +29,7 @@
         <tr>
           <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
           <!--<td></td>-->
-          <td><span class="text-ellipsis">{{$d->kh->hoten}}</span></td>
+          <td><span class="text-ellipsis">{{$d->kh->name}}</span></td>
           <td>{{$d->soluong}}</td>
           <td>{{$d->ngaymua}}</td>
         </tr>

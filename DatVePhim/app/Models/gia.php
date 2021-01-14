@@ -7,15 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class gia extends Model
 {
-	protected $table = 'gias';
-    protected $fillable = ['loaighe','phim','gai'];
-   public function ghe(){
-        return $this->hasMany('App\Models\loaighe','loaighe','id');
+    protected $table = 'gias';
+    protected $fillable = ['loaighe','phim','gia'];
+   public function lg(){
+        return $this->hasMany('App\Models\phim','phim','id');
     }
-   
-       public function phim(){
-
-        return $this->hasMany('App\Models\phim','gia','id'); 
+       public function r(){
+        return $this->hasMany('App\Models\ghe','loaighe','id');
     }
-
 }

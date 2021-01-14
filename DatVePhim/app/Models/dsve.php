@@ -6,8 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class dsve extends Model
-{
-    public function kh(){
-        return $this->belongsTo('App\User','User','id');
+{ protected $table = 'dsves';
+    protected $fillable = ['khachhang','soluong','ngaymua'];
+   public function kh(){
+        return $this->belongsTo('App\Models\user','khachhang','id');
+    }
+       public function r(){
+        return $this->belongsTo('App\Models\rap','rap','id');
     }
 }

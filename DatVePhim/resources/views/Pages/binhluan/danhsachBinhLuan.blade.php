@@ -1,6 +1,5 @@
 @extends('Pages/admin')
 @section('content')
-<a class="btn bg-olive text-primary bg-primary" style="margin-bottom: 20px;" href="{{route('themP')}}"></i> Thêm Phim</a>
 <div class="panel panel-default">
   <div class="panel-heading">
     DANH SÁCH BÌNH LUẬN
@@ -32,6 +31,7 @@
           <td><span class="text-ellipsis">{{$binhluan->phim->tenphim}}</span></td>
           <td><span class="text-ellipsis">{{$binhluan->noidung}}</span></td>
           <td><span class="text-ellipsis">{{$phim->kh->hoten}}</span></td>
+          <td>{{$phim->diem}}</td>
         </tr>
       </tbody>
       @endforeach

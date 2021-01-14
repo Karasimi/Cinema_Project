@@ -6,11 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class phim extends Model
 {
-    
     protected $table = 'phims';
-    
-
-    public $fillable = ['tenphim','hinhanh','noidung','dotuoi','thoiluong','trailer','daodien','dienvien','theloai','nsx','quocgia','trangthai'];
+    protected $fillable = ['tenphim','hinhanh','thoiluong','trailer','daodien','dienvien','theloai','nsx','quocgia','trangthai'];
     //public $timestamps =false;
  
     //the loai
@@ -34,19 +31,12 @@ class phim extends Model
         return $this->belongsTo('App\Models\quocgia','quocgia','id');
     }
         //lich chieu
-    public function lc(){
+    public function phim(){
 
         return $this->hasMany('App\Models\lichchieu','phim','id'); 
     }
-<<<<<<< HEAD
         public function dg(){
 
         return $this->hasMany('App\Models\danhgia','phim','id'); 
     }
-       public function ve(){
-
-        return $this->hasMany('App\Models\ve','phim','id'); 
-    }
-=======
->>>>>>> f7cdbaabfc12dd4ef86502c324c8bcacce225e52
 }

@@ -9,12 +9,8 @@ class loaighe extends Model
      protected $table = 'loaighes';
     protected $fillable = ['tenloai'];
     
-    public function ghe(){
+    public function g(){
 
-        return $this->hasMany('App\Models\ghe','loaighe','id'); 
-    }
-     public function gia(){
-
-        return $this->beLongTO('App\Models\gia','loaighe','id'); 
+        return $this->beLongTO('App\Models\ghe','loaighe','id'); 
     }
 }

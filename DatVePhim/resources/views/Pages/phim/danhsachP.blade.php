@@ -44,12 +44,12 @@
           <th>NSX</th>
           <th>Đạo Diễn</th>
           <th>Diễn Viên</th>
-
-          <th>ngay</th>
+          <th>Ngày Chiếu</th>
+          <th>Trạng Thái</th>
+          <th>Thao Tác</th>
           <th style="width:30px;"></th>
         </tr>
       </thead>
-
       <tbody>
         @foreach($phim as $key => $phim)
         <tr>
@@ -58,50 +58,60 @@
           <td><span class="text-ellipsis">{{$phim->tl->tentheloai}}</span></td>
           <td>{{$phim->thoiluong}} phút</td>
 
+         
           <td>
-            <img src="upload/{{$phim->hinhanh}}" width="100" height="100" controls></td>
-          <td>
-            {{$phim->trailer}}
+            <img src="upload/d.jpg" width="100" height="100" controls>
           </td>
-          <td><span class="text-ellipsis">{{$phim->qg->tenquocgia}}</span></td>
-          <td><span class="text-ellipsis">{{$phim->nsxs->tennsx}}</span></td>
-          <td><span class="text-ellipsis">{{$phim->dd->tendaodien}}</span></td>
-          <td><span class="text-ellipsis">{{$phim->dv->tendienvien}}</span></td>
+          <td>
+            <td>
+              {{$phim->trailer}}
+            </td>
+            <td><span class="text-ellipsis">{{$phim->qg->tenquocgia}}</span></td>
+            <td><span class="text-ellipsis">{{$phim->nsxs->tennsx}}</span></td>
+            <td><span class="text-ellipsis">{{$phim->dd->tendaodien}}</span></td>
+            <td><span class="text-ellipsis">{{$phim->dv->tendienvien}}</span></td>
 
-          <td>{{$phim->ngay}}</td>
-        <td>
-        <a href="{{route('suaPP', $phim->id)}}" class="active" ui-toggle-class="">
+            <td>{{$phim->ngay}}</td>
+            @if ($phim->trangthai == 1)
+            <td><span class="text-ellipsis text-success">Đang Chiếu</span></td>
+            @elseif ($phim->trangthai == 2 )
+            <td><span class="text-ellipsis text-primary">Sắp Chiếu</span></td>
+            @else
+            <td><span class="text-ellipsis text-danger">Ngưng Hoạt Động</span></td>
+            @endif  
+            <td>
+              <a href="{{route('suaP', $phim->id)}}" class="active" ui-toggle-class="">
                 <i class="fa fa-edit text-success text-active">Sửa</i>
-                </a>
-                <a href="{{route('xoaP', $phim->id)}}" class="active" ui-toggle-class="">
+              </a>
+              <a href="{{route('xoaP', $phim->id)}}" class="active" ui-toggle-class="">
                 <i class="fa fa-times text-danger text">Xóa</i>
               </a>
-        </td>
-        </tr>
+            </td>
+          </tr>
+          @endforeach
 
-      </tbody>
-      @endforeach
-    </table>
-  </div>
-  <footer class="panel-footer">
-    <div class="row">
-
-      <div class="col-sm-5 text-center">
-        <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
-      </div>
-      <div class="col-sm-7 text-right text-center-xs">
-        <ul class="pagination pagination-sm m-t-none m-b-none">
-          <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-          <li><a href="">1</a></li>
-          <li><a href="">2</a></li>
-          <li><a href="">3</a></li>
-          <li><a href="">4</a></li>
-          <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
-        </ul>
-      </div>
+        </tbody>
+      </table>
     </div>
-  </footer>
-</div>
+    <footer class="panel-footer">
+      <div class="row">
+
+        <div class="col-sm-5 text-center">
+          <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+        </div>
+        <div class="col-sm-7 text-right text-center-xs">
+          <ul class="pagination pagination-sm m-t-none m-b-none">
+            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
+            <li><a href="">1</a></li>
+            <li><a href="">2</a></li>
+            <li><a href="">3</a></li>
+            <li><a href="">4</a></li>
+            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
 </div>
 </section>
 @stop

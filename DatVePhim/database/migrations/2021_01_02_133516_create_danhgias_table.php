@@ -17,11 +17,11 @@ class CreateDanhgiasTable extends Migration
             $table->integer('diem');
             $table->integer('phim')->unsigned();;
             $table->integer('khachhang')->unsigned();;
-            $table->boolean('trangthai');
+            $table->boolean('trangthai')->default(1);
             $table->timestamps();
 
             $table->foreign('phim')->references('id')->on('phims');
-            $table->foreign('khachhang')->references('id')->on('khachhangs');
+            $table->foreign('khachhang')->references('id')->on('users');
             $table->primary(['khachhang']);
         
         });

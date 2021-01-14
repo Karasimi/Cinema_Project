@@ -19,7 +19,7 @@ class CreatePhimsTable extends Migration
             $table->string('hinhanh');
             $table->string('thoiluong');
             $table->string('noidung');
-             $table->integer('dotuoi');
+            $table->integer('dotuoi');
             $table->string('trailer');
             $table->integer('trangthai')->default(1);
             $table->integer('daodien')->unsigned();

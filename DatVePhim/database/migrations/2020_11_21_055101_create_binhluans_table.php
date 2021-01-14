@@ -19,9 +19,8 @@ class CreateBinhluansTable extends Migration
             $table->integer('khachhang')->unsigned();;
             $table->boolean('trangthai');
             $table->timestamps();
-
             $table->foreign('phim')->references('id')->on('phims');
-            $table->foreign('khachhang')->references('id')->on('khachhangs');
+            $table->foreign('khachhang')->references('id')->on('users');
         });
     }
 

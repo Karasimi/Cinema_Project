@@ -1,9 +1,8 @@
 @extends('Pages/admin')
 @section('content')
-<a class="btn bg-olive text-primary bg-primary" style="margin-bottom: 20px;" href="{{route('themP')}}"></i> Thêm Phim</a>
 <div class="panel panel-default">
   <div class="panel-heading">
-    DANH SÁCH VÉ
+    DANH SÁCH KHÁCH HÀNG
   </div>
   <div class="row w3-res-tb">
     <div class="col-sm-4">
@@ -36,6 +35,7 @@
           <td>{{$d->sdt}}</td>
           <td>{{$d->diachi}}</td>
           <td>{{$d->anh}}</td>
+          <td>{{$d->trangthai}}</td>
         </tr>
       </tbody>
       @endforeach

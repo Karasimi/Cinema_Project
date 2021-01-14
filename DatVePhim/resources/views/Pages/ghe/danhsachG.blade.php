@@ -38,6 +38,17 @@
             })
         }
     })
+     $(document).on('click','#hoatdong', function(){
+        var id= $(this).data('xoa');
+            $.ajax({
+                type:'GET',
+                url:"{{route('hoatdongghe')}}",
+                data:{id:id},
+                success: function(data){
+                    load();
+                }
+            })
+    })
 
 
 
