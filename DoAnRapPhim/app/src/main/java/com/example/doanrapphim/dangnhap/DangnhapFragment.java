@@ -24,6 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.doanrapphim.R;
+import com.example.doanrapphim.activity_dangnhap;
 import com.example.doanrapphim.activity_trangchu;
 import com.example.doanrapphim.adapter.adapterjson;
 import com.example.doanrapphim.ketnoi.Constant;
@@ -100,10 +101,15 @@ public class DangnhapFragment extends Fragment {
                     SharedPreferences.Editor editor = userPref.edit();
                     editor.putString("token", jsonObject.getString("token"));
                     editor.putString("name", user.getString("name"));
+                    editor.putString("sdt", user.getString("sdt"));
+                    editor.putString("diachi", user.getString("diachi"));
+                    editor.putString("anh", user.getString("anh"));
+                    editor.putBoolean("isLoggedIn", true);
                     editor.apply();
                     //Toast.makeText(getContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), activity_trangchu.class);
                     startActivity(intent);
+                    ((activity_dangnhap)getContext()).finish();
                 }
 
             }catch (JSONException e){

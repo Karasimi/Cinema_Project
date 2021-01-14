@@ -8,11 +8,12 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:usesCleartextTraffic="true"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DoAnRapPhim">
+        android:theme="@style/Theme.DoAnRapPhim"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".MainActivityThanhtoan"></activity>
         <activity
             android:name=".activity_dsPhim"
             android:parentActivityName=".activity_trangchu" />
@@ -20,7 +21,9 @@
             android:name=".activity_chiTietPhim"
             android:parentActivityName=".activity_trangchu" />
         <activity android:name=".activity_chitiet.datghe" />
-        <activity android:name=".activity_trangcanhan" android:parentActivityName=".activity_trangchu"></activity>
+        <activity
+            android:name=".activity_trangcanhan"
+            android:parentActivityName=".activity_trangchu" />
         <activity android:name=".MainActivity" />
         <activity android:name=".activity_trangchu" />
         <activity android:name=".activity_dangnhap">
