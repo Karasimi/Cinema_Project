@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Base64;
 
 public class ReadJsonCustomer {
     public static customer readCompanyJSONFile(Context context) throws IOException, JSONException {
@@ -66,5 +67,6 @@ public class ReadJsonCustomer {
             sb.append("\n");
         }
         return sb.toString();
+
     }
 }
