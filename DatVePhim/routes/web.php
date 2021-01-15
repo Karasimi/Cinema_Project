@@ -42,7 +42,7 @@ Route::group(['prefix'=>'admin','middleware'=>'CheckLogout'],function(){
         Route::post('them','AdminController@postThemP')->name('themP');
 
         Route::get('sua/{id}','AdminController@SuaP')->name('suaP');
-        Route::post('sua/{id}','AdminController@postSuaP')->name('suaP');
+        Route::post('sua/{id}','AdminController@updateP')->name('suaP');
 
         Route::get('xoa/{id}','AdminController@XoaP')->name('xoaP');
         Route::get('danhgia','AdminController@dsDG')->name('dsDG');

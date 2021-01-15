@@ -947,6 +947,7 @@ public function postThemP(Request $request)
   $phim->dotuoi = $request->dotuoi;
   $phim->noidung = $request->noidung;
   $phim->ngay = $request->ngay;
+  $phim->trangthai = $request->trangthai;
   $n = Carbon::now()->toDateString();
   $dt = Carbon::parse($n)->addDays();
   if ($phim->ngay > $dt) {
@@ -961,7 +962,7 @@ public function postThemP(Request $request)
     $file = $request->file('hinhanh');
     $name = $file->getClientOriginalName();
     $hinhanh = Str::random(5)."".$name; 
-    $file->move("/upload/",$hinhanh);
+    $file->move("upload/",$hinhanh);
     $phim->hinhanh= $hinhanh;
 
   }else{
@@ -982,10 +983,27 @@ public function SuaP($id)
   return view('Pages.phim.suaP', ['dienvien'=>$dienvien,'theloai'=>$theloai,
   'quocgia'=>$quocgia,'nsx'=>$nsx,'phim'=>$phim,'daodien'=>$daodien]);
 }
-public function postSuaP(Request $request, $id)
+public function updateP(Request $request, $id)
 {
-  $phim = phim::find($id);
+  $this->validate($request, [
+    'tenphim' => 'required',
+    'trailer' => 'required|min:2',
+    'thoiluong' => 'required|min:2',  
+    'thoiluong' => 'required|min:2',
 
+
+  ], [
+    'tenphim.required' => 'Bạn Chưa Nhập Tên Phim',
+    'tenphim.unique' => 'Phim Đã Tồn Tại',
+    'tenphim.min' => 'Tên Thể Loại Có Độ Dài Từ 3 Đến 50 Kí Tự',
+    'tenphim.max' => 'Tên Thể Loại Có Độ Dài Từ 3 Đến 50 Kí Tự',
+    'trailer.required' => 'Bạn Chưa Nhập Tên Phim',
+    'thoiluong.required' => 'Bạn Chưa Nhập Tên Phim',
+    'diem.required' => 'Bạn Chưa Nhập Tên Phim',
+    'trailer.min' => 'Trailer Có Độ Dài Ít Nhất 3 Kí Tự',
+    'thoiluong.min' => 'Trailer Có Độ Dài Ít Nhất 5 Kí Tự',
+  ]);
+   $phim = phim::find($id);
   $phim->tenphim = $request->tenphim;
   $phim->theloai = $request->theloai;
   $phim->daodien = $request->daodien;
@@ -993,29 +1011,31 @@ public function postSuaP(Request $request, $id)
   $phim->dotuoi = $request->dotuoi;
   $phim->noidung = $request->noidung;
   $phim->ngay = $request->ngay;
+  $phim->trangthai = $request->trangthai;
 
   $phim->quocgia = $request->quocgia;
   $phim->nsx = $request->nsx;
   $phim->thoiluong = $request->thoiluong;
   $phim->trailer = $request->trailer;
-  $phim->trangthai = $request->trangthai;
-   if( $request->hasFile('hinhanh')){
+  if($request->hasFile('hinhanh')){
     $file = $request->file('hinhanh');
     $name = $file->getClientOriginalName();
     $hinhanh = Str::random(5)."".$name; 
     $file->move("upload/",$hinhanh);
     $phim->hinhanh= $hinhanh;
-    }
-  $phim->save();//'id',$id ak
-  //mà không pít thêm sao
+
+  }else{
+    $phim->hinhanh = $phim->hinhanh;
+  }
+  $phim->save();
   
-  return redirect()->back()->with('thongbao', 'Thêm Phim Thành Công');
+  return redirect()->back()->with('thongbao', 'Sửa Phim Thành Công');
 }
     //xoa phim
 public function XoaP($id)
 {
   $phim = phim::where('id',$id)->first();
-  $phim->trangthai = 0;
+  $phim->trangthai = 2;
   $phim->save();
   return redirect()->back()->with('thongbao', 'Đã Xóa Thể Loại Thành Công');
 }

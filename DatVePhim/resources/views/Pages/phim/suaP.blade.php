@@ -20,9 +20,9 @@
                         {{session('thongbao')}}
                     </div>
                     @endif   
-                    <form action="{{route('themP')}}"  method="POST" enctype="multipart/form-data">
+                    <form action="{{route('suaP',$phim->id)}}"  method="POST" enctype="multipart/form-data">
                      @csrf
-
+                     <input type="hidden" name="id" value="{{$phim->id}}">
                      <div class="form-group">
                         <label for="exampleInputPassword1">Tên Phim</label>
                         <input type="" value="{{$phim->tenphim}}" name="tenphim" class="form-control" id="exampleInputPassword1" placeholder="Password">           
@@ -92,11 +92,12 @@
                         <label for="exampleInputPassword1">Trailer</label>
                         <input type="" name="trailer" value="{{$phim->trailer}}" class="form-control" id="exampleInputPassword1" placeholder="Password">
                     </div>
-                           <div class="form-group">
+
+                    <div class="form-group">
                         <label for="exampleInputPassword1">Trạng Thái</label>
-                         <select class="form-control" name="" value="{{$phim->trangthai}}" id="trangthai">
-                        <option value=1>Chiếu</option>
-                        <option value=0>Ngưng</option>
+                         <select class="form-control" name="trangthai" value="{{$phim->trangthai}}" id="trangthai">
+                        <option value=0>Đang Chiếu</option>
+                        <option value=1>Sắp Chiếu</option>
                     </select>
                 </div>
 

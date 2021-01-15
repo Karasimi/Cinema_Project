@@ -15,7 +15,7 @@ class CreatePhimsTable extends Migration
     {
         Schema::create('phims', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tenphim');
+            $table->string('tenphim')->unique();
             $table->string('hinhanh');
             $table->string('thoiluong');
             $table->string('noidung');

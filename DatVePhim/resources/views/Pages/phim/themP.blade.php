@@ -82,6 +82,14 @@
                                 </div>
                               
                                 <div class="form-group">
+                                    <label for="exampleInputPassword1">Trạng Thái</label>
+                                    <select class="form-control" name="trangthai"  id="trangthai">
+                                        <option value=0>Đang Chiếu</option>
+                                        <option value=1>Sắp Chiếu</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="exampleInputFile">Hình Ảnh</label>
                                     <input type="file" name="hinhanh"  id="exampleInputPassword1">
                                    
