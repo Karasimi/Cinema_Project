@@ -28,7 +28,10 @@ Route::group(['prefix'=>'api'],function(){
 		Route::get('datve','APIController@hihi')->name('dv');;
 
 });  
-
+Route::post('login', 'Api\UserController@login');
+Route::post('dangky', 'Api\UserController@dangky');
+Route::get('dangxuat', 'Api\UserController@dangxuat');
+Route::post('save_user_info','Api\UserController@saveUser')->middleware('jwtAuth');
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 // 	return $request->user();
 // });
