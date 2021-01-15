@@ -25,13 +25,23 @@ Route::group(['prefix'=>'api'],function(){
 	Route::post('ghe','APIController@ghe')->name('dsg');;
 	Route::get('ngay','APIController@layngay')->name('dsh');;
 	Route::post('datve','APIController@datve')->name('dv');;
-		Route::get('datve','APIController@hihi')->name('dv');;
+	Route::get('datve','APIController@hihi')->name('dv');;
+	Route::post('thanhtoan','APIController@thanhtoan')->name('dv');;
+	Route::get('thanhtoan1','APIController@thanhtoan1')->name('dv');;
+	Route::post('bl','APIController@binhluan')->name('dv');;
+   Route::post('binhluan','APIController@bl')->name('dv');;
+    Route::post('chamdiem','APIController@chamdiem')->name('dv');;
+     Route::post('ttcanhan','APIController@ttcanhan')->name('dv');;
+     Route::post('capnhatcanhan','APIController@capnhatcanhan')->name('dv');;
+     Route::post('lsgiaodich','APIController@lsgiaodich')->name('dv');;
+
 
 });  
+
 Route::post('login', 'Api\UserController@login');
 Route::post('dangky', 'Api\UserController@dangky');
 Route::get('dangxuat', 'Api\UserController@dangxuat');
 Route::post('save_user_info','Api\UserController@saveUser')->middleware('jwtAuth');
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 // 	return $request->user();
-// });
+// });; chạy đc chưa

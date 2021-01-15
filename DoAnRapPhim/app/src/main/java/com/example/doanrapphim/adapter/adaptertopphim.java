@@ -2,7 +2,10 @@ package com.example.doanrapphim.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +47,8 @@ public class adaptertopphim extends RecyclerView.Adapter<adaptertopphim.ViewHold
     public void onBindViewHolder(@NonNull adaptertopphim.ViewHolder holder, int position) {
         holder.ten.setText(p.get(position).getTenphim());
         holder.theloai.setText(p.get(position).getTheloai());
-        int hinhAnh = this.getDrawableResIdByName(p.get(position).getHinhanh());
-        holder.imageView.setImageResource(hinhAnh);
+        String hinhAnh = p.get(position).getHinhanh();
+        holder.imageView.setImageBitmap(chuyenAnh(hinhAnh));
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,5 +86,10 @@ public class adaptertopphim extends RecyclerView.Adapter<adaptertopphim.ViewHold
     public void filterl(LinkedList<Phim> filterP){
         p = filterP;
         notifyDataSetChanged();
+    }
+    private Bitmap chuyenAnh(String hinhanh) {
+        byte[] anh = Base64.decode(hinhanh, Base64.DEFAULT);
+        Bitmap decode = BitmapFactory.decodeByteArray(anh, 0, anh.length);
+        return decode;
     }
 }

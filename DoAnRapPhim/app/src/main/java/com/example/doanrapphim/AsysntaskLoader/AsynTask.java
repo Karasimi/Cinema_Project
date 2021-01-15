@@ -14,7 +14,7 @@ public class AsynTask extends AsyncTaskLoader<String> {
     public AsynTask(@NonNull Context context, String url, int phuongThuc, String thamSo) {
         super(context);
         this.url = url;
-        this.phuongThuc = 1;
+        this.phuongThuc = phuongThuc;
         this.thamSo = thamSo;
     }
 
@@ -23,9 +23,13 @@ public class AsynTask extends AsyncTaskLoader<String> {
     public String loadInBackground() {
         if (phuongThuc == 1){
             return KetNoi_GET.getDL(this.url);
-        }else {
-            return null;
+        }else
+            if (phuongThuc == 2){
+            return KetNoi_POST.getDL(this.url, this.thamSo);
         }
+            else {
+                return null;
+            }
     }
 
     @Override

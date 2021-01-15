@@ -2,7 +2,10 @@ package com.example.doanrapphim.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.WordViewHolder> {
     public void onBindViewHolder(@NonNull WordViewHolder holder, int position) {
         holder.ten.setText(p.get(position).getTenphim());
         holder.tlphim.setText(p.get(position).getTheloai());
-        int hinhAnh = this.getDrawableResIdByName(p.get(position).getHinhanh());
-        holder.img.setImageResource(hinhAnh);
+        holder.img.setImageBitmap(chuyenAnh(p.get(position).getHinhanh()));
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +56,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.WordViewHolder> {
             }
         });
     }
+
+    private Bitmap chuyenAnh(String hinhanh) {
+        byte[] anh = Base64.decode(hinhanh, Base64.DEFAULT);
+        Bitmap decode = BitmapFactory.decodeByteArray(anh, 0, anh.length);
+        return decode;
+    }
+
     @Override
     public int getItemCount() {
         return p.size();
@@ -77,9 +86,5 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.WordViewHolder> {
             constraintLayout = (ConstraintLayout) itemView.findViewById(R.id.layoutds);
         }
     }
-    public int getDrawableResIdByName(String tenHinh)  {
-        String ct = context.getPackageName();
-        int resID = context.getResources().getIdentifier(tenHinh , "drawable", ct);
-        return resID;
-    }
+
 }

@@ -24,14 +24,12 @@
       </thead>
 
       <tbody>
-        @foreach($binhluan as $key => $binhluan)
+        @foreach($binhluan as $key => $bl)
         <tr>
           <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-          <td>{{$binhluan->phim}}</td>
-          <td><span class="text-ellipsis">{{$binhluan->phim->tenphim}}</span></td>
-          <td><span class="text-ellipsis">{{$binhluan->noidung}}</span></td>
-          <td><span class="text-ellipsis">{{$phim->kh->hoten}}</span></td>
-          <td>{{$phim->diem}}</td>
+          <td><span class="text-ellipsis">{{$bl->p->tenphim}}</span></td>
+          <td><span class="text-ellipsis">{{$bl->noidung}}</span></td>
+          <td><span class="text-ellipsis">{{$bl->kh->name}}</span></td>
         </tr>
       </tbody>
       @endforeach

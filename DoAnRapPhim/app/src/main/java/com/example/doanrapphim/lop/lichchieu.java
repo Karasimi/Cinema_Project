@@ -4,9 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class lichchieu {
-    private int id;
-    private String ngaychieu;
-    private String giochieu;
+    private int thoigian;
     private int phim;
     private int rap;
     private boolean expan;
@@ -27,28 +25,12 @@ public class lichchieu {
         this.rap = rap;
     }
 
-    public int getId() {
-        return id;
+    public int getThoigian() {
+        return thoigian;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNgaychieu() {
-        return ngaychieu;
-    }
-
-    public void setNgaychieu(String ngaychieu) {
-        this.ngaychieu = ngaychieu;
-    }
-
-    public String getGiochieu() {
-        return giochieu;
-    }
-
-    public void setGiochieu(String giochieu) {
-        this.giochieu = giochieu;
+    public void setThoigian(int thoigian) {
+        this.thoigian = thoigian;
     }
 
     public int getPhim() {

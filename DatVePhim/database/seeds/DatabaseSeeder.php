@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
       $this->call(theloaiSeeder::class);
-     $this->call(daodienSeeder::class);
-      $this->call(dienvienSeeder::class);
+     //$this->call(daodienSeeder::class);
+     // $this->call(dienvienSeeder::class);
       $this->call(nsxSeeder::class);
       $this->call(quocgiaSeeder::class);
 
@@ -72,12 +72,12 @@ class dienvienSeeder extends Seeder{
 class nsxSeeder extends Seeder{
     public function run(){
         DB::table('nsxes')->insert([
-            ['tennsx'=>'NSX 1'],
-            ['tennsx'=>'NSX 2'],
-            ['tennsx'=>'NSX 3'],
-            ['tennsx'=>'NSX 4'],
-            ['tennsx'=>'NSX 5'],
-            ['tennsx'=>'NSX 6'],
+            ['tennsx'=>'NSX Viễn Tưởng'],
+            ['tennsx'=>'NSX Khoa Học'],
+            ['tennsx'=>'NSX Hoạt Hình'],
+            ['tennsx'=>'NSX Hành Động'],
+            ['tennsx'=>'NSX Số 7'],
+            ['tennsx'=>'NSX Số 10'],
         ]);
     }
 }

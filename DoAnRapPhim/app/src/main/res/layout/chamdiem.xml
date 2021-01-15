@@ -10,11 +10,19 @@
         android:text="Điểm Cho Phim!!!">
     </TextView>
     <RatingBar
+        android:numStars="10"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rating">
     </RatingBar>
+    <Button
+        android:id="@+id/btnchamDiem"
+        android:text="OK"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </Button>
 
 
 </LinearLayout>

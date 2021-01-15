@@ -18,6 +18,7 @@
         android:textSize="30sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
     <EditText
         android:background="@drawable/edt"
         android:drawableStart="@drawable/tk"
@@ -28,7 +29,6 @@
         android:textSize="20sp"
         android:inputType="textEmailAddress"
         android:hint=" TÀI KHOẢN"
-        android:text="trung@gmail.com"
         android:ems="10"
         android:drawableLeft="@drawable/tk" />
 
@@ -42,7 +42,6 @@
         android:layout_marginTop="15dp"
         android:textSize="20sp"
         android:hint=" MẬT KHẨU"
-        android:text="123456"
         android:inputType="textPassword"
         android:drawableLeft="@drawable/mk" />
 
@@ -60,5 +59,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="ĐĂNG NHẬP" />
-
+    <Button
+        android:background="@drawable/edt"
+        android:layout_marginTop="10dp"
+        android:id="@+id/dangnhap_dangky"
+        android:text="Đăng ký"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

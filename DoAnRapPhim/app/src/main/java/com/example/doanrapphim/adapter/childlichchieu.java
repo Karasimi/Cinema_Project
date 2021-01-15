@@ -1,5 +1,6 @@
 package com.example.doanrapphim.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,10 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.doanrapphim.MainActivity;
 import com.example.doanrapphim.R;
 import com.example.doanrapphim.activity_chiTietPhim;
 import com.example.doanrapphim.activity_chitiet.datghe;
 import com.example.doanrapphim.activity_chitiet.tabthongtin;
+import com.example.doanrapphim.activity_dangnhap;
 import com.example.doanrapphim.lop.Phim;
 import com.example.doanrapphim.lop.khungtgchieu;
 import com.example.doanrapphim.lop.lichchieu;
@@ -28,12 +31,12 @@ import java.util.LinkedList;
 
 public class childlichchieu extends RecyclerView.Adapter<childlichchieu.ViewHolder> {
     private LayoutInflater mInflater;
-    private LinkedList<lichchieu> p = new LinkedList<>();
+    private LinkedList<khungtgchieu> p = new LinkedList<>();
     Context context;
-    private  RecyclerView.RecycledViewPool child = new RecyclerView.RecycledViewPool();
-
-    public childlichchieu(LinkedList<lichchieu> p, Context context) {
+    Bundle bundle;
+    public childlichchieu(LinkedList<khungtgchieu> p, Bundle bundle, Context context) {
         this.p = p;
+        this.bundle = bundle;
         this.context = context;
         mInflater = LayoutInflater.from(context);
     }
@@ -48,12 +51,19 @@ public class childlichchieu extends RecyclerView.Adapter<childlichchieu.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull childlichchieu.ViewHolder holder, int position) {
-        holder.btn.setText(p.get(position).getGiochieu());
+        holder.btn.setText(p.get(position).getGio());
         holder.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, datghe.class);
-                context.startActivity(intent);
+                if (MainActivity.ID != 0) {
+                    Intent intent = new Intent(context, datghe.class);
+                    bundle.putInt("thoigian", p.get(position).getId());
+                    intent.putExtra("datve", bundle);
+                    context.startActivity(intent);
+                }else {
+                    Intent intent = new Intent(context, activity_dangnhap.class);
+                    context.startActivity(intent);
+                }
             }
         });
     }

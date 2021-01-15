@@ -27,6 +27,7 @@ public class adapterlich extends RecyclerView.Adapter<adapterlich.WordViewHolder
     private LinkedList<lich> p = new LinkedList<>();
     Context context;
     public OnItemClickListener onItemClickListener;
+    int f =0;
     public adapterlich(LinkedList<lich> p, Context context) {
         this.p = p;
         this.context = context;
@@ -42,14 +43,30 @@ public class adapterlich extends RecyclerView.Adapter<adapterlich.WordViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull WordViewHolder holder, int position) {
+        String ngay  = p.get(position).getNgay()+"/"+p.get(position).getThang();
+        if (position == 0){
+            holder.t1.setText("Hôm Nay");
+            holder.t1.setTextSize(12);
+
+        }else {
             holder.t1.setText(p.get(position).getThu());
-            holder.t2.setText(String.valueOf(p.get(position).getNgay()));
+        }
+            holder.t2.setText(ngay);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickListener.OnItemClickListener(p.get(position).getThu(), p.get(position).getNgay(), p.get(position).getThang(), p.get(position).getNam());
+                onItemClickListener.OnItemClickListener(p.get(position).getThu(), p.get(position).getNgay(), p.get(position).getThang(), p.get(position).getNam(), p.get(position).getNtn());
+                f=position;
+                notifyDataSetChanged();
             }
         });
+        if(f==position){
+            holder.linearLayout.setBackgroundResource(R.drawable.chonngay);
+        }
+        else
+        {
+            holder.linearLayout.setBackgroundResource(R.color.white);
+        }
     }
     @Override
     public int getItemCount() {

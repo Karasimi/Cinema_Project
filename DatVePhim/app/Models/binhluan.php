@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class binhluan extends Model
 {
-    public function phim(){
+	   protected $table = 'binhluans';
+    protected $fillable = ['phim','khachhang','noidung'];
+    public function p(){
         return $this->belongsTo('App\Models\phim','phim','id');
     }public function kh(){
-        return $this->belongsTo('App\Models\khachhang','khachhang','id');
+        return $this->belongsTo('App\Models\user','khachhang','id');
     }
 }

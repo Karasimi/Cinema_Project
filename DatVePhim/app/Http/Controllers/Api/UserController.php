@@ -50,7 +50,7 @@ class UserController extends Controller
     }
     public function dangxuat(Request $req)
     {
-        try{
+       try{
             JWTAuth::invalidate(JWTAuth::parseToken($req->token));
             return response()->json([
                 'success' =>true,
@@ -58,7 +58,6 @@ class UserController extends Controller
             ]);
         }
         catch(Exception $e){
-           
             return response()->json([
                 'success' => false,
                 'message'=>''.$e

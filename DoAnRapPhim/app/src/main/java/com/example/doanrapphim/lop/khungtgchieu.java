@@ -3,9 +3,18 @@ package com.example.doanrapphim.lop;
 import java.sql.Date;
 
 public class khungtgchieu {
+    private int rap;
     private int id;
     private String ngaychieu;
     private String gio;
+
+    public int getRap() {
+        return rap;
+    }
+
+    public void setRap(int rap) {
+        this.rap = rap;
+    }
 
     public int getId() {
         return id;

@@ -10,7 +10,7 @@ function kiemtra($phim, $rap, $khungtgchieu, $dt){
   foreach ($rap as $key => $value2) {
     foreach ($phim as $key => $value) {  
       $p = phim::find($value);
-      $ngay = Carbon::parse($dt)->addDays();
+      $ngay = Carbon::parse($dt)->addDays()->toDateString();
       if ($p->ngay < $ngay) {
 
        foreach ($khungtgchieu as $ki => $value1) {   

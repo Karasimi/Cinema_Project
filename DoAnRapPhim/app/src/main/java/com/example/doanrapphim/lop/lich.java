@@ -1,6 +1,16 @@
 package com.example.doanrapphim.lop;
 
 public class lich {
+    private String ntn;
+
+    public String getNtn() {
+        return ntn;
+    }
+
+    public void setNtn(String ntn) {
+        this.ntn = ntn;
+    }
+
     private String thu;
     private int ngay;
     private  int thang;

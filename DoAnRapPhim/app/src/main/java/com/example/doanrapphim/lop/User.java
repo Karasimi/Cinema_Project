@@ -4,6 +4,16 @@ import android.text.TextUtils;
 import android.util.Patterns;
 
 public class User {
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private String email;
     private String password;
     public User(String gmail, String passord)

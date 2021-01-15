@@ -1044,8 +1044,9 @@ public function XoaP($id)
  //lich chieu
 public function danhSachLC()
 {
+  $now = Carbon::now()->toDateString();
   $dl="";
-  $lichchieu = lichchieu::all();
+  $lichchieu = lichchieu::join('khungtgchieus','khungtgchieus.id','=','lichchieus.thoigian')->where('khungtgchieus.ngaychieu','>=',$now)->get();
   $dl.= '
   <table class="table" id="dslichchieu">
   <thead class="thead-dark">
@@ -1054,7 +1055,6 @@ public function danhSachLC()
   <th>Rạp</th>
   <th>Thời Gian</th>
   <th>Ngày</th>
-  <th>Thao Tác</th>
   </tr>
   </thead>
   <tbody>';
@@ -1109,7 +1109,7 @@ public function postThemLC(Request $request)
       $slr++;
     }
     if($dt < $now){
-        return Response()->json(['errors'=>'Không Chọn Ngày Nhỏ Hơn Hiện Tại']);
+      return Response()->json(['errors'=>'Không Chọn Ngày Nhỏ Hơn Hiện Tại']);
     }
     else{
       while($dt < $kt){
@@ -1119,23 +1119,22 @@ public function postThemLC(Request $request)
        $solichchieu  =  kiemtra($phim, $r, $khungtgchieu, $dt);
        while ($solichchieu < $sl) {
          $solichchieu  = $solichchieu +  kiemtra($phim, $r, $khungtgchieu, $dt);
-        $solichchieu++;
        }
        $dt = Carbon::parse($dt)->addDays();
-      }
+     }
 
-    }
-  }
+   }
+ }
 }
 
-  public function ac(Request $request)
-  {
-   $a = $request->all();
+public function ac(Request $request)
+{
+ $a = $request->all();
 
- }
+}
     //sua lich chieu
- public function SuaLC($id)
- {
+public function SuaLC($id)
+{
   $lichchieu = lichchieu::find($id);
   $phim = phim::all();
   $rap = rap::all();
@@ -1174,22 +1173,22 @@ public function ThemGC()
     $tg[$key]->trangthai = 0;
     $tg[$key]->save();
   }
- }
- $khungtgchieu = khungtgchieu::where('trangthai',1)->get();
- $dl.= '<header class="panel-heading ">
- KHUNG THỜI GIAN
- </header>
- <table class="table" id="dsgc">
- <thead class="thead-dark">
- <tr>
- <th>Thời Gian</th>
- <th>Ngày</th>
- <th>Trạng Thái</th>
- <th>Thao Tác</th>
- </tr>
- </thead>
- <tbody>';
- foreach($khungtgchieu as $tl){
+}
+$khungtgchieu = khungtgchieu::where('trangthai',1)->get();
+$dl.= '<header class="panel-heading ">
+KHUNG THỜI GIAN
+</header>
+<table class="table" id="dsgc">
+<thead class="thead-dark">
+<tr>
+<th>Thời Gian</th>
+<th>Ngày</th>
+<th>Trạng Thái</th>
+<th>Thao Tác</th>
+</tr>
+</thead>
+<tbody>';
+foreach($khungtgchieu as $tl){
   $dl.= '
   <tr>
   <td>'.$tl->giochieu.'</td>
@@ -1266,6 +1265,7 @@ public function XoaGC(Request $request)
 //ghe
 public function danhSachG()
 {
+  $now = Carbon::now()->toDateString();
   $dl='';
   $ghe = ghe::all();
   $dl.= '<header class="panel-heading ">
@@ -1293,14 +1293,16 @@ public function danhSachG()
     <td>';
     if($tl->trangthai == 1)
      $dl.= '<div class="text-success">Hoạt Động</div>';
-   else
+   else if ($tl->trangthai == 2) {
+    $dl.= '<div class="text-danger">Đã Đặt</div>';
+  } else{
     $dl.= '<div class="text-danger">Ngừng Hoạt Động</div>';
-
+  }
   $dl.= '
   </td>
   <td>
   <button class="btn btn-danger" data-xoa="'.$tl->id.'" id="xoa"><i class="fa fa-times"> Dừng</i></button>
-    <button class="btn btn-primary  " data-xoa="'.$tl->id.'" id="hoatdong"><i class="fa fa-times"> Tiếp Tục</i></button>
+  <button class="btn btn-primary  " data-xoa="'.$tl->id.'" id="hoatdong"><i class="fa fa-times"> Tiếp Tục</i></button>
   </td>
   </tr>'; 
 }
@@ -1361,7 +1363,7 @@ public function TimKiemR()
 //danh gia phim 
 public function dsDG(){
   $danhgia = danhgia::paginate(10);
-   return view('Pages.danhgia.dsdanhgia',['danhgia'=>$danhgia]);
+  return view('Pages.danhgia.dsdanhgia',['danhgia'=>$danhgia]);
 }
 public function danhSachGia()
 {
@@ -1375,7 +1377,7 @@ public function ThemGia()
  $dl='';
  $gia = gia::all();
  $dl.= '<header class="panel-heading ">
-  BẢNG GIÁ
+ BẢNG GIÁ
  </header>
  <table class="table" id="dsrap">
  <thead class="thead-dark">
@@ -1426,7 +1428,7 @@ public function postThemGia(Request $request)
    return Response()->json(['errors'=>$errors]);
  } else{
   for($i = 1; $i< 3; $i++){
-      $gia = new gia;
+    $gia = new gia;
     $gia->phim = $request->phim;
     $gia->loaighe = $i;
     if ($i == 1) {
@@ -1473,6 +1475,7 @@ public function XoaGia(Request $request)
   $gia->trangthai=0;
   $gia->save();
 }
+
 
 
 }

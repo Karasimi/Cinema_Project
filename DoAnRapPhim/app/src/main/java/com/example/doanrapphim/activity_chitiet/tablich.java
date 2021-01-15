@@ -1,6 +1,7 @@
 package com.example.doanrapphim.activity_chitiet;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.doanrapphim.AsysntaskLoader.AsynTask;
 import com.example.doanrapphim.R;
 import com.example.doanrapphim.adapter.AdapterLichChieu;
 import com.example.doanrapphim.adapter.MyAdapter;
@@ -39,15 +52,20 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class tablich extends Fragment {
-    private ExpandableListView expandableListView;
-    private List<group> groups;
-    private Map<group, List<item>> litem;
-    private listadapter ladapter;
+public class tablich extends Fragment implements LoaderManager.LoaderCallbacks<String> {
+    static final int GET = 1;
+    static final int POST = 2;
+    static final int LOADERLich = 111;
+    static final int LOADERRapx2 = 114;
+    static final int LOADERRap = 112;
+    private LoaderManager loaderManager;
+    private String ngayTrongTuan = "";
+
 
     //lay du lieu
 
@@ -60,13 +78,10 @@ public class tablich extends Fragment {
     TextView trong;
     adapterlich adtlich;
     LinkedList<lich> p = new LinkedList<>();
+    LinkedList<rap> Rap = new LinkedList<>();
     LinkedList<khungtgchieu> k = new LinkedList<>();
-    Calendar calendar = Calendar.getInstance();
-    int ng, t, n;
-    String s;
-    Calendar c;
-    SimpleDateFormat format1;
     OnItemClickListener onItemClickListener;
+    int maPhim;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,202 +91,184 @@ public class tablich extends Fragment {
         rc1 = view.findViewById(R.id.rcl);
         all = view.findViewById(R.id.all);
         trong = view.findViewById(R.id.idnull);
+        Bundle maP = getActivity().getIntent().getExtras();
+        maPhim = maP.getInt("id");
+        //goi asyntask
+        Bundle bundle = new Bundle();
+        bundle.putInt("phuongThuc", GET);
+        loaderManager = LoaderManager.getInstance(this);
+        loaderManager.initLoader(LOADERLich, bundle, this);
+
         trong.setVisibility(View.GONE);
-         format1 = new SimpleDateFormat("dd/MM/yyyy");
-        ngayHienTai();
-        s = String.valueOf(ng)+"/"+t+"/"+n;
-        layNgay();
         onItemClickListener = new OnItemClickListener() {
             @Override
-            public void OnItemClickListener(String th, int ng, int t, int n) {
-                String a = th+" " + ng + " Tháng "+t+" "+n;
-                s = String.valueOf(ng)+"/"+t+"/"+n;
-                    all.setText(a);
-                if (layDsRap(s).size() == 0){
-                    trong.setVisibility(View.VISIBLE);
-                    trong.setText("Không Có Lịch Chiếu");
-                    rc1.setVisibility(View.GONE);
-                }else {
-                    trong.setVisibility(View.GONE);
-                    rc1.setVisibility(View.VISIBLE);
-                    adapterLichChieu.filterl(layDsRap(s),layLich(s));
-                }
+            public void OnItemClickListener(String th, int ng, int t, int n, String ntn) {
+                all.setText(setNgay(th, ng, t, n));
+                doiLich(ntn);
             }
+
         };
-        recyclerView.setHasFixedSize(false);
-        GridLayoutManager gridLayout = new GridLayoutManager(getContext(),7);
-        recyclerView.setLayoutManager(gridLayout);
-        adtlich = new adapterlich(p, getContext());
-        adtlich.onItemClickListener = onItemClickListener;
-        recyclerView.setAdapter(adtlich);
-        layLich(s);
-        if (layDsRap(s).size() == 0){
-            trong.setVisibility(View.VISIBLE);
-            trong.setText("Không Có Lịch Chiếu");
-        }else {
-            adapterLichChieu = new AdapterLichChieu(layDsRap(s),layLich(s),getContext());
-            rc1.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-            rc1.setAdapter(adapterLichChieu);
-        }
         return view;
     }
 
-    public void layNgay() {
-        for (int i = 0; i < 7; i++) {
-            lich l = new lich();
-            l.setNgay(ng);
-            l.setThang(t);
-            l.setNam(n);
-            l.setThu(chonNgay(ng, t, n));
-            p.add(i, l);
-            kiemTra(ng, t, n);
+    public String setNgay(String thu, int ng, int th, int n) {
+        String s = thu + " " + ng + " Tháng " + th + " " + n;
+        return s;
+    }
+    public void doiLich(String ngay){
+        Bundle layRap = new Bundle();
+        layRap.putInt("maPhim",maPhim);
+        layRap.putInt("phuongThuc",POST);
+        layRap.putString("ngay",ngay);
+        if (loaderManager.getLoader(LOADERRap) == null) {
+            loaderManager.initLoader(LOADERRapx2,layRap,this);
+        } else {
+            loaderManager.restartLoader(LOADERRapx2, layRap, this);
         }
     }
-
-    public void kiemTra(int ngay, int thang, int nam) {
-        switch (thang) {
-            case 2:
-                if (((n % 4 == 0) && (n % 100 != 0)) || (n % 400 == 0)) {
-                    if (ngay < 29) {
-                        ng += 1;
-                    } else if (thang < 12) {
-                        ng = 1;
-                        t += 1;
-                    } else {
-                        ng = 1;
-                        t = 1;
-                        n += 1;
-                    }
-                } else if (ngay < 28) {
-                    ng += 1;
-                } else if (thang < 12) {
-                    ng = 1;
-                    t += 1;
-                } else {
-                    ng = 1;
-                    t = 1;
-                    n += 1;
-                }
-                break;
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12: {
-                if (ngay < 31) {
-                    ng += 1;
-                } else if (thang < 12) {
-                    ng = 1;
-                    t += 1;
-                } else {
-                    ng = 1;
-                    t = 1;
-                    n += 1;
+    @NonNull
+    @Override
+    public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
+        if (args != null && id == LOADERLich) {
+                String url = "http://192.168.43.83/DatVePhim/public/api/api/dslich";
+                String thamSo = "";
+                return new AsynTask(getContext(), url, args.getInt("phuongThuc"), thamSo);
+        }else {
+            if (args != null && id == LOADERRap) {
+                String url = "http://192.168.43.83/DatVePhim/public/api/api/rap";
+                ngayTrongTuan = args.getString("ngay");
+                String thamSo = "id="+args.getInt("maPhim")+"&ngaychieu="+ngayTrongTuan;
+                return new AsynTask(getContext(), url, args.getInt("phuongThuc"), thamSo);
+            }
+            else {
+                if (args != null && id == LOADERRapx2) {
+                    String url = "http://192.168.43.83/DatVePhim/public/api/api/rap";
+                    String a = args.getString("ngay");
+                    String thamSo = "id="+args.getInt("maPhim")+"&ngaychieu="+a;
+                    return new AsynTask(getContext(), url, args.getInt("phuongThuc"), thamSo);
                 }
             }
-            break;
-            case 4:
-            case 6:
-            case 9:
-            case 11: {
-                if (ngay < 30) {
-                    ng += 1;
-                } else if (thang < 12) {
-                    ng = 1;
-                    t += 1;
-                } else {
-                    ng = 1;
-                    t = 1;
-                    n += 1;
-                }
-            }
-            break;
         }
+        return null;
     }
 
-    private String chonNgay(int ng, int t, int n) {
-        String input_date = ng + "/" + t + "/" + n;
-        Date dt1 = null;
-        try {
-            dt1 = format1.parse(input_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        DateFormat format2 = new SimpleDateFormat("EEE");
-        String finalDay = format2.format(dt1);
-        return finalDay;
-    }
-    private LinkedList<lichchieu> layLich(String s ){
-        Bundle bundle = getActivity().getIntent().getExtras();
-        int maPhim = bundle.getInt("id");
-        String d = "";
-        JSONObject jsonRoot = null;
-        JSONArray jsonArray;
-        LinkedList<lichchieu> dslich = new LinkedList<>();
-        int l;
-        d = new adapterjson().read(getContext(), R.raw.data);
-        try {
-            jsonRoot = new JSONObject(d);
-            jsonArray = jsonRoot.getJSONArray("lichchieu");
-            l = jsonArray.length();
-            int count=0;
-            for (int i = 0; i < l; i++) {
-                    lichchieu lc = new lichchieu();
-                    String s2 = jsonArray.getJSONObject(i).getString("ngaychieu");
-                    if (jsonArray.getJSONObject(i).getInt("phim") == maPhim && s.equals(s2)) {
-                        lc.setId(jsonArray.getJSONObject(i).getInt("id"));
-                        lc.setRap(jsonArray.getJSONObject(i).getInt("rap"));
-                        lc.setNgaychieu(jsonArray.getJSONObject(i).getString("ngaychieu"));
-                        lc.setGiochieu(jsonArray.getJSONObject(i).getString("giochieu"));
-                        lc.setPhim(jsonArray.getJSONObject(i).getInt("phim"));
-                        dslich.add(count, lc);
-                        count++;
+    @Override
+    public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+        if (loader.getId() == LOADERLich && data != null) {
+            if (p.size() < 7) {
+                setTuan(data);
+            }
+        }else {
+            if (loader.getId() == LOADERRap && data != null) {
+                if (Rap != null){
+                    Rap.clear();
+                }
+                Rap = setRap(data);
+                k = setGio(data);
+                if (Rap.size() == 0) {
+                    trong.setVisibility(View.VISIBLE);
+                    trong.setText("Không Có Lịch Chiếu");
+                    rc1.setVisibility(View.GONE);
+                } else {
+                    adapterLichChieu = new AdapterLichChieu(Rap, maPhim, k, getContext());
+                    rc1.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                    rc1.setAdapter(adapterLichChieu);
+                }
+            } else {
+                if (loader.getId() == LOADERRapx2 && data != null) {
+                    if (Rap != null){
+                        Rap.clear();
+                    }
+                    Rap = setRap(data);
+                    k = setGio(data);
+                    if (Rap.size() != 0) {
+                        trong.setVisibility(View.GONE);
+                        rc1.setVisibility(View.VISIBLE);
+                        adapterLichChieu.filterl(Rap,k);
+                    }
+                }else {
+                    if (data == null) {
+                        trong.setVisibility(View.VISIBLE);
+                        trong.setText("Không Có Lịch Chiếu");
+                        rc1.setVisibility(View.GONE);
                     }
                 }
-        } catch (JSONException e){
-        e.printStackTrace();
-    }
-        return dslich;
+            }
+        }
     }
 
-    private LinkedList<rap> layDsRap(String s){
-        String d = "";
-         JSONObject jsonRoot = null;
-         JSONArray jsonArray;
-        int l;
-        d = new adapterjson().read(getContext(), R.raw.data);
+    @Override
+    public void onLoaderReset(@NonNull Loader<String> loader) {
+
+    }
+    public void setTuan(String data){
+            try {
+                JSONArray jr = new JSONArray(data);
+                int l = jr.length();
+                for (int i = 0; i < l; i++) {
+                    lich lc = new lich();
+                    JSONObject jc = jr.getJSONObject(i);
+                    lc.setNgay(jc.getInt("ngay"));
+                    lc.setThang(jc.getInt("thang"));
+                    lc.setThu(jc.getString("thu"));
+                    lc.setNam(jc.getInt("nam"));
+                    lc.setNtn((jc.getString("ntn")));
+                    p.add(i, lc);
+                }
+            } catch (JSONException jsonException) {
+                jsonException.printStackTrace();
+            }
+            recyclerView.setHasFixedSize(false);
+            GridLayoutManager gridLayout = new GridLayoutManager(getContext(), 7);
+            recyclerView.setLayoutManager(gridLayout);
+            adtlich = new adapterlich(p, getContext());
+            adtlich.onItemClickListener = onItemClickListener;
+            recyclerView.setAdapter(adtlich);
+        all.setText(setNgay(p.getFirst().getThu(), p.getFirst().getNgay(), p.getFirst().getThang(), p.getFirst().getNam()));
+        Bundle layRap = new Bundle();
+        layRap.putInt("maPhim",maPhim);
+        layRap.putInt("phuongThuc",POST);
+        layRap.putString("ngay",p.getFirst().getNtn());
+        loaderManager.initLoader(LOADERRap, layRap, this);
+    }
+    public LinkedList<rap> setRap(String data){
         LinkedList<rap> raps = new LinkedList<>();
         try {
-            jsonRoot = new JSONObject(d);
-            jsonArray = jsonRoot.getJSONArray("rap");
-            l = jsonArray.length();
-            int count =0;
+            JSONObject js = new JSONObject(data);
+            JSONArray jr = js.getJSONArray("rap");
+            int l = jr.length();
+            raps.clear();
             for (int i = 0; i < l; i++) {
                 rap r = new rap();
-                if (kiemTraRap(layLich(s),jsonArray.getJSONObject(i).getInt("id"))) {
-                    r.setId(jsonArray.getJSONObject(i).getInt("id"));
-                    r.setTenrap(jsonArray.getJSONObject(i).getString("ten"));
-                    raps.add(count, r);
-                    count++;
-                }
+                JSONObject jc = jr.getJSONObject(i);
+                r.setTenrap(jc.getString("tenrap"));
+                r.setId(jc.getInt("id"));
+                r.setSocot(jc.getInt("socot"));
+                raps.add(i, r);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (JSONException jsonException) {
+            jsonException.printStackTrace();
         }
-        return raps;
+       return raps;
     }
-    private boolean kiemTraRap(LinkedList<lichchieu> a,int r){
-        for (lichchieu l: a) {
-            if (l.getRap() == r)
-            return true;
+    public LinkedList<khungtgchieu> setGio(String data){
+        LinkedList<khungtgchieu> khungtgchieus = new LinkedList<>();
+        try {
+            JSONObject js = new JSONObject(data);
+            JSONArray jr = js.getJSONArray("gio");
+            int l = jr.length();
+            for (int i = 0; i < l; i++) {
+                khungtgchieu r = new khungtgchieu();
+                JSONObject jc = jr.getJSONObject(i);
+                r.setId(jc.getInt("thoigian"));
+                r.setRap(jc.getInt("rap"));
+                r.setNgaychieu(jc.getString("ngaychieu"));
+                r.setGio(jc.getString("giochieu"));
+                khungtgchieus.add(i, r);
+            }
+        } catch (JSONException jsonException) {
+            jsonException.printStackTrace();
         }
-        return false;
-    }
-    public void ngayHienTai(){
-        ng = calendar.get(calendar.DATE);
-        t = calendar.get(calendar.MONTH) + 1;
-        n = calendar.get(calendar.YEAR);
+        return khungtgchieus;
     }
 }

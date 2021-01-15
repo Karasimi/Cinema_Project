@@ -1,21 +1,41 @@
 package com.example.doanrapphim.lop;
 
+import java.util.LinkedList;
+
 public class ghe {
     private int id;
-    private int cot;
+    private String cot;
     private String hang;
     private int rap;
+    private int loai;
+    private int trangthai;
+
+    public int getTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(int trangthai) {
+        this.trangthai = trangthai;
+    }
+
+    public int getLoai() {
+        return loai;
+    }
+
+    public void setLoai(int loai) {
+        this.loai = loai;
+    }
+
     private boolean dat;
 
     public boolean isDat() {
         return dat;
     }
-
     public void setDat(boolean dat) {
         this.dat = dat;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -23,11 +43,11 @@ public class ghe {
         this.id = id;
     }
 
-    public int getCot() {
+    public String getCot() {
         return cot;
     }
 
-    public void setCot(int cot) {
+    public void setCot(String cot) {
         this.cot = cot;
     }
 

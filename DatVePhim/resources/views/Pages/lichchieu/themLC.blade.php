@@ -36,6 +36,7 @@
                 </label>
               </th>
               <th>Phim</th>
+              <th>Ngày Chiếu</th>
               <th style="width:50px;"></th>
             </tr>
           </thead>
@@ -45,6 +46,7 @@
             <tr>
               <td><input type="checkbox" name="phim[]" value="{{$p->id}}"></td>
               <td>{{$p->tenphim}}</td>
+              <td>{{$p->ngay}}</td>
             </tr>
             @endforeach
           </tbody>
@@ -168,7 +170,7 @@
       },
       success:function(data){
         $('#loadp').html('');
-          $.each(data, function(index, value){
+        $.each(data, function(index, value){
           tableRow = '<tr><td><input type="checkbox" name="phim[]" value='+value.id+'></td><td> '+value.tenphim+'</td> </tr>';
           $('#loadp').append(tableRow);
         });
@@ -185,7 +187,7 @@
       },
       success:function(data){
         $('#loadr').html('');
-          $.each(data, function(index, value){
+        $.each(data, function(index, value){
           tableRow = '<tr><td><input type="checkbox" name="rap[]" value="'+value.id+'"></td><td>'+value.tenrap+'</td></tr>';
           $('#loadr').append(tableRow);
         });

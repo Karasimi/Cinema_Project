@@ -4,6 +4,15 @@ public class rap {
     private int id;
     private String tenrap;
     private boolean expand;
+    private int socot;
+
+    public int getSocot() {
+        return socot;
+    }
+
+    public void setSocot(int socot) {
+        this.socot = socot;
+    }
 
     public boolean isExpand() {
         return expand;

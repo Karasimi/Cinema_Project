@@ -72,9 +72,9 @@
             <td><span class="text-ellipsis">{{$phim->dv->tendienvien}}</span></td>
 
             <td>{{$phim->ngay}}</td>
-            @if ($phim->trangthai == 0 )
+            @if ($phim->trangthai == 1 )
             <td><span class="text-ellipsis text-success">Đang Chiếu</span></td>
-            @elseif ($phim->trangthai == 1 )
+            @elseif ($phim->trangthai == 2 )
             <td><span class="text-ellipsis text-primary">Sắp Chiếu</span></td>
             @else
             <td><span class="text-ellipsis text-danger">Ngưng Hoạt Động</span></td>

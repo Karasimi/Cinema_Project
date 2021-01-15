@@ -8,10 +8,17 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.doanrapphim.R;
 import com.example.doanrapphim.adapter.adapterjson;
 import com.example.doanrapphim.adapter.adaptertopphim;
@@ -36,30 +43,43 @@ public class tabsapchieu extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tabsapchieu, container, false);
-        layDsPhim();
-        adaptertopphim m = new adaptertopphim(top5(listPhim),getContext());
-        viewPager2 =view.findViewById(R.id.vp1);
-        viewPager2.setAdapter(m);
+       loadPhim(view);
         return view;
     }
-    private void layDsPhim(){
-        d = new adapterjson().read(getContext(), R.raw.data);
-        try {
-            jsonRoot = new JSONObject(d);
-            jsonArray = jsonRoot.getJSONArray("phim");
-            l = jsonArray.length();
-            for (int i = 0; i < l; i++) {
-                Phim phim = new Phim();
-                phim.setTenphim(jsonArray.getJSONObject(i).getString("tenphim"));
-                phim.setHinhanh(jsonArray.getJSONObject(i).getString("hinhanh"));
-                phim.setTheloai(jsonArray.getJSONObject(i).getString("theloai"));
-                phim.setId(jsonArray.getJSONObject(i).getInt("maphim"));
-                phim.setTrangthai(jsonArray.getJSONObject(i).getInt("trangthai"));
-                listPhim.add(i,phim);
+    private  void  loadPhim(View view){
+        String url ="http://192.168.43.83/DatVePhim/public/api/api/phim";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    l = jsonArray.length();
+                    for (int i = 0; i < l; i++) {
+                        Phim phim = new Phim();
+                        phim.setTenphim(jsonArray.getJSONObject(i).getString("tenphim"));
+                        phim.setHinhanh(jsonArray.getJSONObject(i).getString("hinhanh"));
+                        phim.setTheloai(jsonArray.getJSONObject(i).getString("theloai"));
+                        phim.setId(jsonArray.getJSONObject(i).getInt("id"));
+                        phim.setTrangthai(jsonArray.getJSONObject(i).getInt("trangthai"));
+                        listPhim.add(i, phim);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                adaptertopphim m = new adaptertopphim(top5(listPhim),getContext());
+                viewPager2 =view.findViewById(R.id.vp1);
+                viewPager2.setAdapter(m);
+
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
     }
     private LinkedList<Phim> top5(LinkedList<Phim> a) {
         LinkedList<Phim> topPhim = new LinkedList<>();

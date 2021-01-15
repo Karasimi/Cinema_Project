@@ -1,4 +1,4 @@
-@include('Pages.header')
+@include('Pages.header');
 <div class="log-w3">
 <div class="w3layouts-main">
 	
@@ -20,5 +20,4 @@
 		<p>Chưa Có Tài kHoản ?<a href="{{route('dangky')}}">Tạo Tài Khoản</a></p>
 </div>
 </div>
-
-@include('Pages.footer')
+@include('Pages.footer');

@@ -19,10 +19,8 @@ class CreateDanhgiasTable extends Migration
             $table->integer('khachhang')->unsigned();;
             $table->boolean('trangthai')->default(1);
             $table->timestamps();
-
             $table->foreign('phim')->references('id')->on('phims');
             $table->foreign('khachhang')->references('id')->on('users');
-            $table->primary(['khachhang']);
         
         });
     }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="200dp"
+    android:background="@color/backround"
+    android:layout_height="200dp">
+    <TextView
+        android:textColor="#D6AF3A"
+        android:layout_margin="20dp"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:text="Đặt Vé Thành Công !!!"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <Button
+        android:background="@drawable/giaodienc"
+        android:id="@+id/btnok"
+        android:text="OK"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </Button>
+</LinearLayout>

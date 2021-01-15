@@ -15,10 +15,10 @@ class CreatePhimsTable extends Migration
     {
         Schema::create('phims', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tenphim')->unique();
+            $table->string('tenphim');
             $table->string('hinhanh');
             $table->string('thoiluong');
-            $table->string('noidung');
+            $table->text('noidung');
             $table->integer('dotuoi');
             $table->string('trailer');
             $table->integer('trangthai')->default(1);

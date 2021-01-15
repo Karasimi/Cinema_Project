@@ -12,5 +12,9 @@
     <color name="cam">#FF9800</color>
     <color name="colorAccent">#2196F3</color>
     <color name="colorPrimary">#00BCD4</color>
-    <color name="yellow">#FFFF00</color>
+    <color name="blue">#2196F3</color>
+    <color name="green">#7FF436</color>
+    <color name="adv">#D1D0D0</color>
+    <color name="aa">#81FA17</color>
+    <color name="gray">#CEC7C6</color>
 </resources>

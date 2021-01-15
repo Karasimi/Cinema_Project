@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.doanrapphim">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,22 +11,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DoAnRapPhim"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivityThanhtoan"></activity>
-        <activity
-            android:name=".activity_dsPhim"
-            android:parentActivityName=".activity_trangchu" />
+        android:theme="@style/Theme.DoAnRapPhim">
+        <activity android:name=".activity_thanhtoan"></activity>
         <activity
             android:name=".activity_chiTietPhim"
-            android:parentActivityName=".activity_trangchu" />
-        <activity android:name=".activity_chitiet.datghe" />
+            android:parentActivityName=".activity_youtube" />
+        <activity
+            android:name=".activity_dsPhim"
+            android:parentActivityName=".activity_youtube" />
+        <activity
+            android:name=".activity_chitiet.datghe"
+            android:parentActivityName=".activity_chiTietPhim" />
         <activity
             android:name=".activity_trangcanhan"
-            android:parentActivityName=".activity_trangchu" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".activity_trangchu" />
-        <activity android:name=".activity_dangnhap">
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".activity_dangnhap" />
+        <activity android:name=".activity_youtube" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -14,5 +14,6 @@
             android:title="Danh Sách Phim"/>
         <item android:id="@+id/nav_dangxuat"
             android:title="Đăng Xuất"/>
+
     </group>
 </menu>

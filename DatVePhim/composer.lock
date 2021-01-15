@@ -801,16 +801,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.30.2",
+            "version": "v7.30.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "405ca2bcf532dff1ef27f9f7ff7940221c575c84"
+                "reference": "e73855b18dcfc645c36d2474f437e4e73dd3c11d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/405ca2bcf532dff1ef27f9f7ff7940221c575c84",
-                "reference": "405ca2bcf532dff1ef27f9f7ff7940221c575c84",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/e73855b18dcfc645c36d2474f437e4e73dd3c11d",
+                "reference": "e73855b18dcfc645c36d2474f437e4e73dd3c11d",
                 "shasum": ""
             },
             "require": {
@@ -959,7 +959,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-01-13T13:37:00+00:00"
+            "time": "2020-12-22T17:00:45+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2339,16 +2339,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v6.2.5",
+            "version": "v6.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "698a6a9f54d7eb321274de3ad19863802c879fb7"
+                "reference": "56f0ab23f54c4ccbb0d5dcc67ff8552e0c98d59e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/698a6a9f54d7eb321274de3ad19863802c879fb7",
-                "reference": "698a6a9f54d7eb321274de3ad19863802c879fb7",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/56f0ab23f54c4ccbb0d5dcc67ff8552e0c98d59e",
+                "reference": "56f0ab23f54c4ccbb0d5dcc67ff8552e0c98d59e",
                 "shasum": ""
             },
             "require": {
@@ -2398,7 +2398,7 @@
             ],
             "support": {
                 "issues": "https://github.com/swiftmailer/swiftmailer/issues",
-                "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.2.5"
+                "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.2.4"
             },
             "funding": [
                 {
@@ -2410,7 +2410,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-12T09:35:59+00:00"
+            "time": "2020-12-08T18:02:06+00:00"
         },
         {
             "name": "symfony/console",

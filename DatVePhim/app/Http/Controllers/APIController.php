@@ -7,13 +7,19 @@ use App\Models\phim;
 use App\Models\rap;
 use App\Models\lich;
 use App\Models\ghe;
+use App\Models\gia;
+use App\Models\danhgia;
+use App\Models\dsve;
 use App\Models\ve;
 use App\Models\theloai;
+use App\Models\user;
+use App\Models\binhluan;
 use App\Models\lichchieu;
 use App\Models\khungtgchieu;
 use Illuminate\Http\Response;
 use Carbon\Carbon;
 use stdClass;
+use DateTime;
 use Illuminate\Database\Eloquent\Collection;
 
 class APIController extends Controller
@@ -25,7 +31,7 @@ class APIController extends Controller
      */
     public function getPhim()
     {
-      $phim = phim::all();
+      $phim = phim::where('trangthai','<>',0)->get();
       foreach ($phim as $key=>$value) {
         $phim[$key]->tenphim = $value->tenphim;
         $phim[$key]->theloai = $value->tl->tentheloai;
@@ -56,8 +62,25 @@ class APIController extends Controller
       $imagedata = file_get_contents($hinhanh);
       $base64 = base64_encode($imagedata);
       $phim->hinhanh = $base64;
-      return response()->json($phim, Response::HTTP_OK);
 
+
+      $danhgia = danhgia::where('phim',$id)->avg('diem');
+      $diem = array('diem' => $danhgia);
+      return response()->json(['phim'=>$phim,'diem'=>$diem], Response::HTTP_OK);
+
+    }
+    public function chamdiem(Request $request){
+      $id = $request->phim;
+      $diem = $request->diem;
+      $khachhang = $request->khachhang;
+      $danhgia = new danhgia;
+      $danhgia->phim = $id;
+      $danhgia->diem = $diem;
+      $danhgia->khachhang = $khachhang;
+      $danhgia->save();
+      $danhgia = danhgia::where('phim',$id)->avg('diem');
+      $diem = array('diem' => $danhgia);
+      return Response()->json($diem);
     }
     public function postLC(Request $request)
     {
@@ -71,7 +94,8 @@ class APIController extends Controller
         $rap = rap::find($value->rap);
         $dsr[$key] = array('id' =>$rap->id,'tenrap'=>$rap->tenrap,'socot'=>$rap->socot);
       }
-      $gio = lichchieu::join('khungtgchieus', 'khungtgchieus.id', '=', 'lichchieus.thoigian')->get(['ngaychieu','rap','giochieu','thoigian']);
+      $gio = lichchieu::join('khungtgchieus', 'khungtgchieus.id', '=', 'lichchieus.thoigian')->
+      where('khungtgchieus.ngaychieu','>=',$ngay)->get(['ngaychieu','rap','giochieu','thoigian']);
       return response()->json(['rap'=>$dsr,'gio'=>$gio], Response::HTTP_OK);
 
     }
@@ -123,23 +147,41 @@ class APIController extends Controller
     public function ghe(Request $request)
     {
       $id = $request->rap;
+      $gio = $request->thoigian;
       $ghe = ghe::where('rap',$id)->get();
-      return response()->json($ghe, Response::HTTP_OK);
+      $gia = gia::where('trangthai',1)->get();
+      foreach ($ghe as $key => $value) {
+        $g = ghe::join('ves','ves.ghe','=','ghes.id')->where('ves.thoigian',$gio)->where('ves.ghe',$value->id)->count();
+        if ($g != 0) {
+          $ghe[$key]->trangthai = 2;
+        }
+      }
+      return response()->json(['ghe'=>$ghe,'gia'=>$gia], Response::HTTP_OK);
     }
-    public function datve(Request $request){
-       $a = $request->ghe;
-       $ghedat = json_decode($a);
-       foreach ($ghedat as $key => $value) {
+    public function hihi(Request $request){
+      $id = $request->phim;
+      $diem = $request->diem;
+      $khachhang = $request->khachhang;
+      $kiemTra = danhgia::where('phim',$id)->where('khachhang',$khachhang)->count();
+      if ($kiemTra == 0) {
+        $danhgia = new danhgia;
+        $danhgia->phim = $id;
+        $danhgia->diem = $diem;
+        $danhgia->khachhang = $khachhang;
+        $danhgia->save();
+      }else
+      {
+        // $chamDiem = danhgia::where('phim',$id)->where('khachhang',$khachhang)->get();
+        // $chamDiem->khachhang = $khachhang;
+        // $chamDiem->phim = $id;
+        // $chamDiem->diem = $diem;
+        // $danhgia->save();
+      }
+      $danhgia = danhgia::where('phim',$id)->avg('diem');
+      $diem = array('diem' => $danhgia);
+      return Response()->json($chamDiem);
 
-       }
-      return $a;
- }
-   public function hihi(){
-        $rap = rap::all();
-        $rap = $rap->reverse()->values();
-        $a = $rap->reverse()->values();
-        return [$rap,$a];
- }
+    }
     public function datve(Request $request){
       $phim = $request->phim;
       $thoigian = $request->thoigian;
@@ -161,8 +203,8 @@ class APIController extends Controller
           $ve->thoigian = $thoigian;
           $ve->ghe = $value->id;
           $ve->dsve = $dsve->id;
-     $gia = gia::where('phim',$phim)->where('loaighe',$value->loai)->first('id');
-          $ve->gia = 1;
+          $gia = gia::where('phim',$phim)->where('loaighe',$value->loai)->first('id');
+          $ve->gia = $gia->id;
           $ve->save();
         }else {
 
@@ -171,4 +213,88 @@ class APIController extends Controller
       }
       return Response()->json($v);
     }
-}
+    public function thanhtoan(Request $request){
+      $p = $request->phim;
+      $r =$request->rap;
+      $tg = $request->thoigian;
+      $phim = phim::find($p)->first(['id','tenphim','hinhanh']);
+      $rap = rap::find($r);
+      $thoigian = khungtgchieu::find($tg);
+      $hinhanh="upload/".$phim->hinhanh;
+      $imagedata = file_get_contents($hinhanh);
+      $base64 = base64_encode($imagedata);
+      $arrayName = array('tenphim'=>$phim->tenphim, 'hinhanh'=>$base64, 'tenrap'=>$rap->tenrap, 'giochieu'=>$thoigian->giochieu, 'ngaychieu'=>$thoigian->ngaychieu);
+      return Response()->json($arrayName);
+    }   
+    public function thanhtoan1(Request $request){
+      $danhgia = danhgia::where('phim',1)->avg('diem');
+      $arrayName = array('diem' => $danhgia);
+      return $arrayName;
+    }
+    public function binhluan(Request $request)
+    {
+      $phim = $request->phim;
+      $binhluan = binhluan::where('phim',$phim)->get();
+
+      foreach ($binhluan as $key => $value) {
+        if ($value->kh->name != null) {
+          $binhluan[$key]->khachhang=$value->kh->name;
+        }else{
+          $binhluan[$key]->khachhang=$value->kh->email;
+        }
+      }
+      return Response()->json($binhluan);
+
+    }
+    public function bl(Request $request)
+    {
+      $phim = $request->phim;
+      $noidung = $request->noidung;
+      $khachhang = $request->khachhang;
+      $binhluan = binhluan::all();
+      $bl = new binhluan;
+      $bl->khachhang = $khachhang;
+      $bl->noidung = $noidung;
+      $bl->phim = $phim;
+      $bl->save();
+      $bl = binhluan::where('phim',$phim)->get();
+      foreach ($bl as $key => $value) {
+        if ($value->kh->name != null) {
+          $bl[$key]->khachhang=$value->kh->name;
+        }else{
+          $bl[$key]->khachhang=$value->kh->email;
+        }
+      }
+      return Response()->json($bl);
+    }
+    public function ttcanhan(Request $request)
+    {
+      $id = $request->khachhang;
+      $khachhang =user::find($id);
+      return Response()->json($khachhang);
+    }
+    public function capnhatcanhan(Request $request)
+    {
+      $id = $request->khachhang;
+      $t = $request->name;
+      $dc = $request->diachi;
+      $e = $request->email;
+      $p = $request->phone;
+      $khachhang =user::find($id);
+      $khachhang->name = $t;
+      $khachhang->email = $e;
+      $khachhang->diachi = $dc;
+      $khachhang->sdt = $p;
+      $khachhang->save();
+      return Response()->json($khachhang);
+    }
+    public function lsgiaodich(Request $request)
+    {
+      $id = $request->khachhang;
+      $giaodich =dsve::where('khachhang',$id)->get();
+      foreach ($giaodich as $key => $value) {
+        $giaodich[$key]->khachhang = $value->kh->name;
+      }
+      return Response()->json($giaodich);
+    }
+  }

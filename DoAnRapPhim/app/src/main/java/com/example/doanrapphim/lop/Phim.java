@@ -3,6 +3,16 @@ package com.example.doanrapphim.lop;
 public class Phim {
     private int id;
     private String tenphim;
+
+    public String getThoiluong() {
+        return thoiluong;
+    }
+
+    public void setThoiluong(String thoiluong) {
+        this.thoiluong = thoiluong;
+    }
+
+    private String thoiluong;
     private String noidung;
     private String hinhanh;
     private String trailer;
@@ -12,6 +22,24 @@ public class Phim {
     private int diem;
     private String tuoi;
     private int trangthai;
+    private String nsx;
+    private String qg;
+
+    public String getNsx() {
+        return nsx;
+    }
+
+    public void setNsx(String nsx) {
+        this.nsx = nsx;
+    }
+
+    public String getQg() {
+        return qg;
+    }
+
+    public void setQg(String qg) {
+        this.qg = qg;
+    }
 
     public int getDiem() {
         return diem;
